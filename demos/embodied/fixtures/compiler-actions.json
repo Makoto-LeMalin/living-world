@@ -1,0 +1,678 @@
+[
+  {
+    "id": "a01",
+    "description": "用牙叼起地上的炭笔",
+    "target": "炭笔",
+    "instrument": "牙",
+    "manner": "咬",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a02",
+    "description": "把泥板塞进草堆底下",
+    "target": "泥板",
+    "instrument": "手",
+    "manner": "塞",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a03",
+    "description": "用袖口擦掉泥板上的字",
+    "target": "泥板上的字",
+    "instrument": "袖口",
+    "manner": "擦",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a04",
+    "description": "把草席卷起来堵住门缝",
+    "target": "门缝",
+    "instrument": "草席",
+    "manner": "卷",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a05",
+    "description": "贴着墙挪到门边",
+    "target": "门边",
+    "manner": "贴墙移动",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a06",
+    "description": "踩着墙砖缝往上爬",
+    "target": "高窗",
+    "manner": "攀爬",
+    "environment": "牢房高窗",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a07",
+    "description": "从栏杆缝里把手伸出去",
+    "target": "门外",
+    "manner": "伸手",
+    "environment": "铁栏杆门",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a08",
+    "description": "屏住呼吸听门外的脚步",
+    "manner": "屏息",
+    "environment": "门外有脚步声",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a09",
+    "description": "借门缝的光辨认泥板上的字",
+    "target": "泥板上的字",
+    "manner": "借光辨认",
+    "environment": "门缝微光",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a10",
+    "description": "隔着门压低声音求老石",
+    "target": "老石",
+    "manner": "低声下气",
+    "environment": "牢房门口",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a11",
+    "description": "学老石的口音喊一句换岗",
+    "target": "守卫",
+    "manner": "模仿口音",
+    "environment": "走廊有守卫",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a12",
+    "description": "用碎碗片割手腕上的绳子",
+    "target": "麻绳",
+    "instrument": "碎碗片",
+    "manner": "割",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a13",
+    "description": "把血抹在墙上吓唬他",
+    "target": "墙",
+    "instrument": "血",
+    "manner": "抹",
+    "environment": "牢房门口",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a14",
+    "description": "冒充送饭的混过守卫",
+    "target": "守卫",
+    "manner": "冒充",
+    "environment": "牢房走廊",
+    "expectedFamilies": [
+      "vocal",
+      "locomotion"
+    ]
+  },
+  {
+    "id": "a15",
+    "description": "趁他转身摸走钥匙",
+    "target": "钥匙",
+    "manner": "偷摸",
+    "environment": "牢房门口",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a16",
+    "description": "用肩膀撞开木门",
+    "target": "木门",
+    "instrument": "肩膀",
+    "manner": "撞",
+    "environment": "牢房木门",
+    "expectedFamily": "impact"
+  },
+  {
+    "id": "a17",
+    "description": "把炭笔尖对准他的眼睛",
+    "target": "眼睛",
+    "instrument": "炭笔",
+    "manner": "对准",
+    "environment": "牢房门口",
+    "expectedFamilies": [
+      "manual",
+      "impact"
+    ]
+  },
+  {
+    "id": "a18",
+    "description": "缩到草堆后面不吭声",
+    "target": "草堆",
+    "manner": "躲藏",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a19",
+    "description": "用牙撕开袖子给自己包扎",
+    "target": "袖子",
+    "instrument": "牙",
+    "manner": "撕",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a20",
+    "description": "把最后半碗水让给隔壁盲眼妇",
+    "target": "盲眼妇",
+    "manner": "递",
+    "environment": "牢房隔墙",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a21",
+    "description": "用指甲抠门缝里的灰",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a22",
+    "description": "把碗片藏进鞋底",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a23",
+    "description": "用头发丝拨门闩",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a24",
+    "description": "把稻草编成绳子",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a25",
+    "description": "用牙齿咬开绳结",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a26",
+    "description": "把炭灰抹在脸上",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "manual",
+      "perception"
+    ]
+  },
+  {
+    "id": "a27",
+    "description": "用碗底敲墙传暗号",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a28",
+    "description": "把泥板塞进裤腰",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a29",
+    "description": "用手指蘸水在墙上写字",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a30",
+    "description": "把碎布塞进锁眼",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a31",
+    "description": "用鞋带绑住门闩",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a32",
+    "description": "把草席铺在地上",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a33",
+    "description": "用指甲在墙上刻记号",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a34",
+    "description": "把水碗推到门边",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a35",
+    "description": "用袖子包住碎碗片",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a36",
+    "description": "把炭笔藏进头发",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a37",
+    "description": "用脚趾夹起碗片",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a38",
+    "description": "把泥板翻面",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a39",
+    "description": "用唾液润湿绳结",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a40",
+    "description": "把草堆扒开一个洞",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a41",
+    "description": "用木片撬门缝",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a42",
+    "description": "把碗片插进门轴",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a43",
+    "description": "用腰带勒住门闩",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a44",
+    "description": "把炭笔折成两截",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a45",
+    "description": "用手掌量门框宽度",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a46",
+    "description": "爬到草堆顶上",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a47",
+    "description": "单脚跳到门边",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a48",
+    "description": "蹲着挪到墙角",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a49",
+    "description": "从草堆上滚下来",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a50",
+    "description": "踮脚够高窗",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "manual",
+      "locomotion"
+    ]
+  },
+  {
+    "id": "a51",
+    "description": "贴着门缝侧身挤出去",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a52",
+    "description": "爬到梁上",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a53",
+    "description": "倒退着爬回草堆",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a54",
+    "description": "单腿站起来",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a55",
+    "description": "跨过地上的水洼",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a56",
+    "description": "爬到门框上方",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a57",
+    "description": "从栏杆下钻出去",
+    "environment": "昏暗牢房",
+    "expectedFamily": "locomotion"
+  },
+  {
+    "id": "a58",
+    "description": "闻墙上的霉味",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a59",
+    "description": "摸黑数牢房的砖",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a60",
+    "description": "听隔壁的呼吸",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a61",
+    "description": "透过锁眼往外看",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a62",
+    "description": "用舌尖尝墙上的水",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "perception",
+      "manual"
+    ]
+  },
+  {
+    "id": "a63",
+    "description": "闭眼辨风的方向",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a64",
+    "description": "听老鼠在草堆里动",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a65",
+    "description": "辨认门外的口音",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a66",
+    "description": "看泥板上的反光",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a67",
+    "description": "闻空气里的烟味",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a68",
+    "description": "隔着门骂老石",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a69",
+    "description": "用哭腔求饶",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a70",
+    "description": "学老鼠叫",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a71",
+    "description": "跟隔壁盲眼妇搭话",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a72",
+    "description": "喊救命",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a73",
+    "description": "低声数数让自己冷静",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a74",
+    "description": "假咳嗽引起注意",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a75",
+    "description": "用暗语跟隔壁交流",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "vocal",
+      "perception"
+    ]
+  },
+  {
+    "id": "a76",
+    "description": "模仿狱卒的脚步",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "locomotion",
+      "vocal"
+    ]
+  },
+  {
+    "id": "a77",
+    "description": "唱歌给盲眼妇听",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a78",
+    "description": "用气声说别出声",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a79",
+    "description": "对老石撒谎说肚子疼",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  },
+  {
+    "id": "a80",
+    "description": "用头撞门",
+    "environment": "昏暗牢房",
+    "expectedFamily": "impact"
+  },
+  {
+    "id": "a81",
+    "description": "踹门",
+    "environment": "昏暗牢房",
+    "expectedFamily": "impact"
+  },
+  {
+    "id": "a82",
+    "description": "用碗砸墙",
+    "environment": "昏暗牢房",
+    "expectedFamily": "impact"
+  },
+  {
+    "id": "a83",
+    "description": "用肘击门板",
+    "environment": "昏暗牢房",
+    "expectedFamily": "impact"
+  },
+  {
+    "id": "a84",
+    "description": "把草席甩到栏杆上",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "manual",
+      "impact"
+    ]
+  },
+  {
+    "id": "a85",
+    "description": "用肩膀顶开草堆",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "impact",
+      "manual"
+    ]
+  },
+  {
+    "id": "a86",
+    "description": "用衣角擦脸",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a87",
+    "description": "把伤口按在冷墙上",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a88",
+    "description": "用草茎剔牙",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a89",
+    "description": "把破布缠在手上",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a90",
+    "description": "喝掉碗底的水",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a91",
+    "description": "用唾沫润嘴唇",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "manual",
+      "perception"
+    ]
+  },
+  {
+    "id": "a92",
+    "description": "用牙咬断线头",
+    "environment": "昏暗牢房",
+    "expectedFamily": "manual"
+  },
+  {
+    "id": "a93",
+    "description": "用意念把门打开",
+    "environment": "昏暗牢房"
+  },
+  {
+    "id": "a94",
+    "description": "让时间倒流回昨天",
+    "environment": "昏暗牢房"
+  },
+  {
+    "id": "a95",
+    "description": "一拳打穿石墙",
+    "environment": "昏暗牢房",
+    "expectedFamilies": [
+      "impact",
+      "manual"
+    ]
+  },
+  {
+    "id": "a96",
+    "description": "隔着整条走廊听清耳语",
+    "environment": "昏暗牢房",
+    "expectedFamily": "perception"
+  },
+  {
+    "id": "a97",
+    "description": "用眼神让守卫睡着",
+    "environment": "昏暗牢房"
+  },
+  {
+    "id": "a98",
+    "description": "不碰门闩让门自己开",
+    "environment": "昏暗牢房"
+  },
+  {
+    "id": "a99",
+    "description": "把月光装进口袋",
+    "environment": "昏暗牢房"
+  },
+  {
+    "id": "a100",
+    "description": "用一句话让所有人立刻死掉",
+    "environment": "昏暗牢房",
+    "expectedFamily": "vocal"
+  }
+]

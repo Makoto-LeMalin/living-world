@@ -1,0 +1,26 @@
+{
+  "name": "living-world",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Ambient companion simulation: an embodied character and a living NPC world",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "demo:embodied": "node --env-file-if-exists=.env demos/embodied/src/cli.ts",
+    "demo:world": "node demos/world/src/cli.ts",
+    "test": "node demos/embodied/test/run.ts",
+    "test:embodied": "node demos/embodied/test/run.ts",
+    "test:world": "node demos/world/test/run.ts",
+    "test:all": "node demos/embodied/test/run.ts && node demos/world/test/run.ts",
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "baseline": "node scripts/baseline.mjs",
+    "verify": "pnpm typecheck && pnpm test:all && pnpm check:secrets && node demos/world/src/cli.ts report && pnpm baseline"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^5.9.3"
+  }
+}

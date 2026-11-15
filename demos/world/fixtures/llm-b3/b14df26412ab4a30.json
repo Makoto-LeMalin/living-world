@@ -1,0 +1,27 @@
+{
+  "request": {
+    "model": "deepseek-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你在一个文字世界里扮演一个 NPC，回答观察者的问题。你只能说这个 NPC 已经知道的事。\n\n规则：\n- 只输出 JSON：{\"speech\":\"...\",\"claims\":[\"fact_id\"],\"tone\":\"calm|afraid|angry|guarded\"}。\n- speech 是 1–3 句世界内的话；不要解释规则，不要提用户/玩家/系统/AI/提示词/系统消息。\n- claims 只能从 allowedClaims 里选；不能编造 fact_id。\n- 不知道就直说“我不知道”，不要补全。\n- 不要出现能力值、评分、数字/100。\n- 语气由 mood 决定，但不能因此编造事实。"
+      },
+      {
+        "role": "user",
+        "content": "{\n  \"identity\": {\n    \"id\": \"npc_merchant\",\n    \"name\": \"玛拉\",\n    \"role\": \"面包商\"\n  },\n  \"perception\": {\n    \"roomId\": \"market_square\",\n    \"placeId\": \"market\",\n    \"presentIds\": [\n      \"npc_child\",\n      \"npc_beggar\",\n      \"npc_crowd_market_m001\",\n      \"crowd_market\",\n      \"pc_observer\"\n    ],\n    \"light\": \"bright\"\n  },\n  \"knownFacts\": [\n    {\n      \"id\": \"f_00007\",\n      \"content\": \"玛拉盘点面包，发现少了两块，开始骂人。\",\n      \"confidence\": 0.95,\n      \"hops\": 0,\n      \"kind\": \"trade\",\n      \"salience\": 0.5\n    },\n    {\n      \"id\": \"f_00015\",\n      \"content\": \"码头方向升起黑烟，集市上的人开始张望。\",\n      \"confidence\": 0.8,\n      \"hops\": 0,\n      \"kind\": \"event\",\n      \"salience\": 0.55\n    },\n    {\n      \"id\": \"f_00012\",\n      \"content\": \"玛拉给面包箱换了新锁，钥匙挂在围裙里。\",\n      \"confidence\": 0.95,\n      \"hops\": 0,\n      \"kind\": \"trade\",\n      \"salience\": 0.42\n    },\n    {\n      \"id\": \"f_00008\",\n      \"content\": \"bread 的价格从 5.19 变成 6.12（集市失窃，面包供给变紧）。\",\n      \"confidence\": 0.8,\n      \"hops\": 0,\n      \"kind\": \"trade\",\n      \"salience\": 0.4791907514450866\n    },\n    {\n      \"id\": \"f_00020\",\n      \"content\": \"火灾之后粮价从 3.11 涨到 3.3，鱼价也变了。\",\n      \"confidence\": 0.8,\n      \"hops\": 0,\n      \"kind\": \"trade\",\n      \"salience\": 0.45\n    },\n    {\n      \"id\": \"f_00014\",\n      \"content\": \"仓库里起火，黑烟从门缝里冒出来。 有人说整座仓库都烧光了。\",\n      \"confidence\": 0.26,\n      \"hops\": 2,\n      \"kind\": \"fire\",\n      \"salience\": 0.9\n    },\n    {\n      \"id\": \"f_00013\",\n      \"content\": \"伊芙 帮了 灰耳 一把。\",\n      \"confidence\": 0.8,\n      \"hops\": 0,\n      \"kind\": \"relationship\",\n      \"salience\": 0.22\n    }\n  ],\n  \"relationship\": {\n    \"trust\": 0.3296201795572415,\n    \"affinity\": 0.16860721372067927,\n    \"fear\": 0\n  },\n  \"mood\": {\n    \"fear\": 0.17704081015661363,\n    \"anger\": 0.21440728172659873,\n    \"trust\": 0.5724332524649799,\n    \"hope\": 0.6277109657600523,\n    \"suspicion\": 0.23154121858999133\n  },\n  \"question\": \"你看到火光了吗？这里发生了什么？\",\n  \"allowedClaims\": [\n    \"f_00007\",\n    \"f_00015\",\n    \"f_00012\",\n    \"f_00008\",\n    \"f_00020\",\n    \"f_00014\",\n    \"f_00013\"\n  ]\n}"
+      }
+    ],
+    "temperature": 0.7,
+    "maxTokens": 320,
+    "responseFormat": "json",
+    "thinking": false
+  },
+  "response": {
+    "content": "{\"speech\":\"码头那边升起了黑烟，集市上的人都在张望。我这边刚盘完面包，发现少了两块，正骂着呢。\",\"claims\":[\"f_00015\",\"f_00007\"],\"tone\":\"guarded\"}",
+    "model": "deepseek-flash",
+    "usage": {
+      "promptTokens": 995,
+      "completionTokens": 55
+    }
+  }
+}

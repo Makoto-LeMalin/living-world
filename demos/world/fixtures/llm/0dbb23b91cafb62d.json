@@ -1,0 +1,27 @@
+{
+  "request": {
+    "model": "deepseek-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是文字世界的中立事件导演（WorldDirector）。你只提出“世界上可能发生什么”的方向，不写结果。\n\n硬规则：\n- 只能提出 allowedTypes 里的类型；不能提出 actor 主动事件（不能写“某人决定去偷/杀/抓”）。\n- 只给 direction、stakes、preconditions、branches、visibility、reason、confidence；\n- direction 不能包含“成功了/失败了/他偷到了/她被抓住了”这类已定结果；结果由规则掷骰。\n- 只使用输入里出现的 place/room/actor/target ID；不要编造 ID。\n- 不读 PC 私有思想、NPC 隐藏记忆、未公开能力值。\n- 时间窗必须在 [tick, tick+6]，地点必须在给定 place/room。\n- 输出 1–3 个提案，JSON 对象，不要 markdown。\n\n只输出：\n{\"proposals\":[{\"type\":\"fog\",\"placeId\":\"market\",\"roomId\":\"market_square\",\"actorIds\":[],\"targetIds\":[],\"timeWindow\":{\"startTick\":0,\"endTick\":6},\"direction\":\"...\",\"stakes\":0.3,\"preconditions\":[],\"branches\":{\"onSuccess\":\"...\",\"onFailure\":\"...\"},\"visibility\":\"place\",\"reason\":\"...\",\"confidence\":0.6}]}"
+      },
+      {
+        "role": "user",
+        "content": "{\n  \"canon\": {\n    \"technology\": \"铁器、木船、油灯；没有火器。\",\n    \"supernatural\": \"神庙只提供安慰与仪式，没有可验证的神术。\",\n    \"law\": \"偷窃可处赔偿、鞭刑或短期拘禁；守卫可以凭目击或可信传闻盘问。\",\n    \"factions\": [\n      {\n        \"id\": \"f_market\",\n        \"name\": \"集市行会\",\n        \"interest\": \"秩序与交易\"\n      },\n      {\n        \"id\": \"f_law\",\n        \"name\": \"渡口守卫\",\n        \"interest\": \"治安与税收\"\n      }\n    ]\n  },\n  \"place\": {\n    \"id\": \"wharf\",\n    \"rooms\": [\n      {\n        \"id\": \"wharf\",\n        \"name\": \"码头\",\n        \"kind\": \"wharf\",\n        \"light\": \"bright\"\n      },\n      {\n        \"id\": \"warehouse\",\n        \"name\": \"仓库\",\n        \"kind\": \"warehouse\",\n        \"light\": \"dim\"\n      },\n      {\n        \"id\": \"inn\",\n        \"name\": \"渡口客栈\",\n        \"kind\": \"inn\",\n        \"light\": \"dim\"\n      },\n      {\n        \"id\": \"house_fisher\",\n        \"name\": \"船夫家\",\n        \"kind\": \"house\",\n        \"light\": \"dim\"\n      }\n    ],\n    \"stocks\": {\n      \"wharf\": {\n        \"fish\": 82,\n        \"grain\": 20\n      },\n      \"warehouse\": {\n        \"grain\": 156,\n        \"fish\": 92,\n        \"cloth\": 55,\n        \"tools\": 26\n      },\n      \"inn\": {\n        \"bread\": 20,\n        \"fish\": 16,\n        \"grain\": 9\n      },\n      \"house_fisher\": {\n        \"fish\": 6\n      }\n    },\n    \"prices\": {\n      \"bread\": 4.06,\n      \"grain\": 3.11,\n      \"fish\": 4.61,\n      \"cloth\": 5.98,\n      \"tools\": 11.76\n    },\n    \"climate\": {\n      \"placeId\": \"wharf\",\n      \"fear\": 0.1647157584827754,\n      \"anger\": 0.14629005882228097,\n      \"trust\": 0.597704117581729,\n      \"hope\": 0.597697270303484,\n      \"suspicion\": 0.1223597293263001,\n      \"updatedAtTick\": 0,\n      \"dominantNarrative\": \"日常\"\n    },\n    \"activeFacts\": [],\n    \"activePlans\": [],\n    \"population\": 4,\n    \"roomIds\": [\n      \"wharf\",\n      \"warehouse\",\n      \"inn\",\n      \"house_fisher\"\n    ]\n  },\n  \"time\": {\n    \"tick\": 6,\n    \"label\": \"D1 07:00\",\n    \"lod\": \"fine\",\n    \"pressure\": 1.2\n  },\n  \"allowedTypes\": [\n    \"structural\"\n  ],\n  \"roomId\": \"wharf\",\n  \"placeId\": \"wharf\",\n  \"budgetRemaining\": 8,\n  \"privacy\": \"不要读取观察者的私有想法、NPC 的隐藏记忆或未公开能力值。\"\n}"
+      }
+    ],
+    "temperature": 0.7,
+    "maxTokens": 900,
+    "responseFormat": "json",
+    "thinking": false
+  },
+  "response": {
+    "content": "{\"proposals\":[{\"type\":\"structural\",\"placeId\":\"wharf\",\"roomId\":\"wharf\",\"actorIds\":[],\"targetIds\":[],\"timeWindow\":{\"startTick\":6,\"endTick\":12},\"direction\":\"清晨潮水退去，码头木桩与栈桥连接处出现松动迹象，通行面可能变得不平整。\",\"stakes\":0.35,\"preconditions\":[\"潮汐变化\",\"木桩长期受水浸泡\"],\"branches\":{\"onSuccess\":\"码头栈桥局部塌陷或明显倾斜，通行受阻，货物搬运需绕行。\",\"onFailure\":\"仅发出木材吱呀声，结构维持原状，未影响通行。\"},\"visibility\":\"place\",\"reason\":\"码头为木结构且临水，日常潮汐与磨损可引发结构问题。\",\"confidence\":0.55},{\"type\":\"structural\",\"placeId\":\"wharf\",\"roomId\":\"warehouse\",\"actorIds\":[],\"targetIds\":[],\"timeWindow\":{\"startTick\":6,\"endTick\":12},\"direction\":\"仓库屋顶因夜间湿气与旧木梁收缩，出现渗漏或局部瓦片错位。\",\"stakes\":0.3,\"preconditions\":[\"仓库为旧木结构\",\"夜间湿度变化\"],\"branches\":{\"onSuccess\":\"仓库内靠墙的粮袋或布匹受潮，需转移货物。\",\"onFailure\":\"仅出现滴水声，货物未受影响。\"},\"visibility\":\"room\",\"reason\":\"旧木仓库在湿度变化下易出现渗漏。\",\"confidence\":0.5}]}",
+    "model": "deepseek-flash",
+    "usage": {
+      "promptTokens": 1048,
+      "completionTokens": 325
+    }
+  }
+}

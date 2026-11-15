@@ -1,0 +1,24 @@
+{
+  "id": "akha",
+  "name": "阿岬",
+  "parts": {
+    "head": { "exists": true, "integrity": 100, "function": 100, "pain": 20, "bleeding": 0, "visibleStates": ["clean"] },
+    "torso": { "exists": true, "integrity": 100, "function": 100, "pain": 10, "bleeding": 0, "visibleStates": ["clean"] },
+    "leftArm": { "exists": true, "integrity": 55, "function": 70, "pain": 60, "bleeding": 20, "visibleStates": ["blood"] },
+    "rightArm": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] },
+    "leftHand": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] },
+    "rightHand": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] },
+    "leftLeg": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] },
+    "rightLeg": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] },
+    "eyes": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] },
+    "ears": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] },
+    "mouth": { "exists": true, "integrity": 100, "function": 100, "pain": 0, "bleeding": 0, "visibleStates": ["clean"] }
+  },
+  "fatigue": 55,
+  "hunger": 30,
+  "thirst": 40,
+  "fever": 35,
+  "intoxication": 0,
+  "consciousness": 80,
+  "statuses": ["bound_hands", "tether"]
+}

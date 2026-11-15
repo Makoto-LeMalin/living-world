@@ -1,0 +1,488 @@
+{
+  "id": "ferry-market",
+  "name": "渡口集",
+  "summary": "河湾边的小集市：上午在集市，下午往码头，夜里各自回家。",
+  "dayStartHour": 6,
+  "tickMinutes": 10,
+  "ticksPerDay": 144,
+  "canon": {
+    "technology": "铁器、木船、油灯；没有火器。",
+    "supernatural": "神庙只提供安慰与仪式，没有可验证的神术。",
+    "law": "偷窃可处赔偿、鞭刑或短期拘禁；守卫可以凭目击或可信传闻盘问。",
+    "factions": [
+      { "id": "f_market", "name": "集市行会", "interest": "秩序与交易" },
+      { "id": "f_law", "name": "渡口守卫", "interest": "治安与税收" }
+    ]
+  },
+  "commodities": ["bread", "grain", "fish", "cloth", "tools"],
+  "prices": {
+    "bread": 4,
+    "grain": 3,
+    "fish": 5,
+    "cloth": 6,
+    "tools": 12
+  },
+  "rooms": [
+    {
+      "id": "market_square",
+      "name": "集市",
+      "placeId": "market",
+      "kind": "market",
+      "light": "bright",
+      "exits": ["temple", "jail", "house_merchant", "house_widow", "shrine", "alley"],
+      "landmarks": [
+        { "id": "lm_stalls", "name": "木架摊位", "description": "几排可拆卸的木架，中午最挤。" },
+        { "id": "lm_well", "name": "石井", "description": "井沿被绳子磨出深槽。" },
+        { "id": "lm_bread_board", "name": "面包板", "description": "玛拉摆面包的旧木板，边角有刀痕。" }
+      ]
+    },
+    {
+      "id": "temple",
+      "name": "神庙",
+      "placeId": "market",
+      "kind": "temple",
+      "light": "dim",
+      "exits": ["market_square", "shrine"],
+      "landmarks": [
+        { "id": "lm_temple_door", "name": "神庙木门", "description": "门框上刻着河神的名字。" },
+        { "id": "lm_bell", "name": "铜铃", "description": "塞拉每天清晨摇一次。" }
+      ]
+    },
+    {
+      "id": "jail",
+      "name": "拘留所",
+      "placeId": "market",
+      "kind": "jail",
+      "light": "dim",
+      "exits": ["market_square", "gate"],
+      "landmarks": [
+        { "id": "lm_jail_bars", "name": "铁栏", "description": "两根栏杆已经生锈，但还结实。" }
+      ]
+    },
+    {
+      "id": "house_merchant",
+      "name": "商人家",
+      "placeId": "market",
+      "kind": "house",
+      "light": "dim",
+      "exits": ["market_square"],
+      "landmarks": [
+        { "id": "lm_merchant_door", "name": "商人家的门", "description": "门板上钉着褪色的行会标记。" }
+      ]
+    },
+    {
+      "id": "house_widow",
+      "name": "寡妇家",
+      "placeId": "market",
+      "kind": "house",
+      "light": "dim",
+      "exits": ["market_square", "shrine"],
+      "landmarks": [
+        { "id": "lm_widow_window", "name": "寡妇家的窗", "description": "窗纸补过三次，边角还漏风。" }
+      ]
+    },
+    {
+      "id": "shrine",
+      "name": "神龛",
+      "placeId": "market",
+      "kind": "shrine",
+      "light": "dim",
+      "exits": ["temple", "market_square", "house_widow"],
+      "landmarks": [
+        { "id": "lm_shrine_stone", "name": "河神石", "description": "石面被摸得发亮，旁边总有半碗米。" }
+      ]
+    },
+    {
+      "id": "alley",
+      "name": "巷子",
+      "placeId": "road",
+      "kind": "alley",
+      "light": "dim",
+      "exits": ["market_square", "gate"],
+      "landmarks": [
+        { "id": "lm_alley_puddle", "name": "巷子水洼", "description": "雨天积水，晴天留下泥痕。" }
+      ]
+    },
+    {
+      "id": "gate",
+      "name": "城门",
+      "placeId": "road",
+      "kind": "gate",
+      "light": "bright",
+      "exits": ["alley", "jail", "wharf"],
+      "landmarks": [
+        { "id": "lm_gate_board", "name": "城门告示板", "description": "上面钉着税日和失物告示。" }
+      ]
+    },
+    {
+      "id": "wharf",
+      "name": "码头",
+      "placeId": "wharf",
+      "kind": "wharf",
+      "light": "bright",
+      "exits": ["gate", "warehouse", "inn", "house_fisher"],
+      "landmarks": [
+        { "id": "lm_crane", "name": "吊货木架", "description": "吱呀作响，只能吊两袋粮。" },
+        { "id": "lm_ferry_boat", "name": "渡船", "description": "船头补过一块新木。" },
+        { "id": "lm_old_dog", "name": "老狗", "description": "趴在系船柱边，对谁都懒得叫。" }
+      ]
+    },
+    {
+      "id": "warehouse",
+      "name": "仓库",
+      "placeId": "wharf",
+      "kind": "warehouse",
+      "light": "dim",
+      "exits": ["wharf"],
+      "landmarks": [
+        { "id": "lm_warehouse_doors", "name": "仓库大门", "description": "门缝里常年有谷壳。" }
+      ]
+    },
+    {
+      "id": "inn",
+      "name": "渡口客栈",
+      "placeId": "wharf",
+      "kind": "inn",
+      "light": "dim",
+      "exits": ["wharf", "house_fisher"],
+      "landmarks": [
+        { "id": "lm_inn_sign", "name": "客栈招牌", "description": "画着一尾鱼和一张床。" }
+      ]
+    },
+    {
+      "id": "house_fisher",
+      "name": "船夫家",
+      "placeId": "wharf",
+      "kind": "house",
+      "light": "dim",
+      "exits": ["wharf", "inn"],
+      "landmarks": [
+        { "id": "lm_fisher_net", "name": "晾着的渔网", "description": "网眼补得很密，是阿渡的手艺。" }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "r_market_alley",
+      "fromRoomId": "market_square",
+      "toRoomId": "alley",
+      "travelTicks": 1,
+      "traffic": 1.4,
+      "danger": 0.15,
+      "patrol": 0.3,
+      "terrain": "road"
+    },
+    {
+      "id": "r_alley_gate",
+      "fromRoomId": "alley",
+      "toRoomId": "gate",
+      "travelTicks": 1,
+      "traffic": 0.8,
+      "danger": 0.2,
+      "patrol": 0.7,
+      "terrain": "checkpoint"
+    },
+    {
+      "id": "r_gate_wharf",
+      "fromRoomId": "gate",
+      "toRoomId": "wharf",
+      "travelTicks": 1,
+      "traffic": 1.2,
+      "danger": 0.3,
+      "patrol": 0.4,
+      "terrain": "ferry"
+    }
+  ],
+  "characters": [
+    {
+      "id": "npc_merchant",
+      "name": "玛拉",
+      "role": "面包商",
+      "tier": "T0",
+      "homeRoomId": "house_merchant",
+      "startRoomId": "house_merchant",
+      "attention": 0.35,
+      "skills": { "theft": 5, "perception": 30, "combat": 10, "persuasion": 55, "stealth": 10 },
+      "needs": { "hunger": 20, "fatigue": 10, "safety": 60, "social": 50, "coin": 80 },
+      "mood": { "fear": 0.2, "anger": 0.25, "trust": 0.55, "hope": 0.55, "suspicion": 0.2 },
+      "coins": 80,
+      "relationships": {
+        "npc_guard": { "trust": 0.6, "affinity": 0.3, "fear": 0.1 },
+        "npc_child": { "trust": 0.5, "affinity": 0.4, "fear": 0.0 },
+        "npc_beggar": { "trust": 0.1, "affinity": 0.0, "fear": 0.3 },
+        "npc_thief": { "trust": 0.0, "affinity": 0.0, "fear": 0.2 },
+        "npc_innkeeper": { "trust": 0.5, "affinity": 0.5, "fear": 0.0 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 84, "activity": "trade", "roomId": "market_square", "priority": 3 },
+        { "startTick": 84, "endTick": 96, "activity": "drink", "roomId": "inn", "priority": 2 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "house_merchant", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_guard",
+      "name": "罗恩",
+      "role": "守卫",
+      "tier": "T0",
+      "homeRoomId": "jail",
+      "startRoomId": "jail",
+      "attention": 0.8,
+      "skills": { "theft": 10, "perception": 70, "combat": 75, "persuasion": 35, "stealth": 30 },
+      "needs": { "hunger": 15, "fatigue": 10, "safety": 80, "social": 40, "coin": 60 },
+      "mood": { "fear": 0.1, "anger": 0.15, "trust": 0.7, "hope": 0.6, "suspicion": 0.3 },
+      "coins": 60,
+      "relationships": {
+        "npc_merchant": { "trust": 0.55, "affinity": 0.3, "fear": 0.0 },
+        "npc_priest": { "trust": 0.7, "affinity": 0.5, "fear": 0.0 },
+        "npc_beggar": { "trust": 0.2, "affinity": 0.0, "fear": 0.1 },
+        "npc_thief": { "trust": 0.0, "affinity": 0.0, "fear": 0.1 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 48, "activity": "patrol", "roomId": "gate", "priority": 3 },
+        { "startTick": 48, "endTick": 84, "activity": "patrol", "roomId": "market_square", "priority": 3 },
+        { "startTick": 84, "endTick": 96, "activity": "work", "roomId": "jail", "priority": 2 },
+        { "startTick": 96, "endTick": 120, "activity": "patrol", "roomId": "gate", "priority": 3 },
+        { "startTick": 120, "endTick": 144, "activity": "sleep", "roomId": "jail", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_drunk",
+      "name": "老卡",
+      "role": "醉汉",
+      "tier": "T2",
+      "homeRoomId": "inn",
+      "startRoomId": "inn",
+      "attention": 0.3,
+      "skills": { "theft": 5, "perception": 20, "combat": 15, "persuasion": 40, "stealth": 5 },
+      "needs": { "hunger": 50, "fatigue": 40, "safety": 30, "social": 70, "coin": 8 },
+      "mood": { "fear": 0.2, "anger": 0.3, "trust": 0.4, "hope": 0.4, "suspicion": 0.1 },
+      "coins": 8,
+      "relationships": {
+        "npc_innkeeper": { "trust": 0.6, "affinity": 0.5, "fear": 0.1 },
+        "npc_beggar": { "trust": 0.5, "affinity": 0.4, "fear": 0.0 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 36, "activity": "drink", "roomId": "inn", "priority": 2 },
+        { "startTick": 36, "endTick": 48, "activity": "beg", "roomId": "market_square", "priority": 1 },
+        { "startTick": 48, "endTick": 84, "activity": "drink", "roomId": "inn", "priority": 2 },
+        { "startTick": 84, "endTick": 96, "activity": "beg", "roomId": "market_square", "priority": 1 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "inn", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_child",
+      "name": "小满",
+      "role": "孩子",
+      "tier": "T1",
+      "homeRoomId": "house_widow",
+      "startRoomId": "house_widow",
+      "attention": 0.95,
+      "skills": { "theft": 3, "perception": 75, "combat": 0, "persuasion": 30, "stealth": 40 },
+      "needs": { "hunger": 30, "fatigue": 20, "safety": 50, "social": 80, "coin": 2 },
+      "mood": { "fear": 0.3, "anger": 0.05, "trust": 0.6, "hope": 0.7, "suspicion": 0.1 },
+      "coins": 2,
+      "relationships": {
+        "npc_merchant": { "trust": 0.6, "affinity": 0.5, "fear": 0.0 },
+        "npc_widow": { "trust": 0.9, "affinity": 0.9, "fear": 0.0 },
+        "npc_beggar": { "trust": 0.3, "affinity": 0.2, "fear": 0.2 },
+        "npc_thief": { "trust": 0.1, "affinity": 0.0, "fear": 0.4 },
+        "npc_guard": { "trust": 0.4, "affinity": 0.1, "fear": 0.3 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 84, "activity": "play", "roomId": "market_square", "priority": 2 },
+        { "startTick": 84, "endTick": 96, "activity": "worship", "roomId": "temple", "priority": 2 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "house_widow", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_priest",
+      "name": "塞拉",
+      "role": "祭司",
+      "tier": "T1",
+      "homeRoomId": "temple",
+      "startRoomId": "temple",
+      "attention": 0.5,
+      "skills": { "theft": 2, "perception": 45, "combat": 10, "persuasion": 70, "stealth": 10 },
+      "needs": { "hunger": 20, "fatigue": 15, "safety": 70, "social": 60, "coin": 30 },
+      "mood": { "fear": 0.1, "anger": 0.05, "trust": 0.75, "hope": 0.8, "suspicion": 0.1 },
+      "coins": 30,
+      "relationships": {
+        "npc_guard": { "trust": 0.7, "affinity": 0.5, "fear": 0.0 },
+        "npc_widow": { "trust": 0.7, "affinity": 0.6, "fear": 0.0 },
+        "npc_child": { "trust": 0.6, "affinity": 0.6, "fear": 0.0 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 84, "activity": "worship", "roomId": "temple", "priority": 3 },
+        { "startTick": 84, "endTick": 96, "activity": "worship", "roomId": "shrine", "priority": 2 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "temple", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_beggar",
+      "name": "灰耳",
+      "role": "乞丐",
+      "tier": "T1",
+      "homeRoomId": "alley",
+      "startRoomId": "market_square",
+      "attention": 0.6,
+      "skills": { "theft": 35, "perception": 55, "combat": 10, "persuasion": 25, "stealth": 50 },
+      "needs": { "hunger": 85, "fatigue": 55, "safety": 20, "social": 30, "coin": 0 },
+      "mood": { "fear": 0.5, "anger": 0.4, "trust": 0.15, "hope": 0.2, "suspicion": 0.6 },
+      "coins": 0,
+      "relationships": {
+        "npc_merchant": { "trust": 0.2, "affinity": 0.0, "fear": 0.3 },
+        "npc_child": { "trust": 0.4, "affinity": 0.3, "fear": 0.0 },
+        "npc_guard": { "trust": 0.1, "affinity": 0.0, "fear": 0.6 },
+        "npc_thief": { "trust": 0.3, "affinity": 0.2, "fear": 0.2 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 84, "activity": "beg", "roomId": "market_square", "priority": 2 },
+        { "startTick": 84, "endTick": 96, "activity": "beg", "roomId": "wharf", "priority": 1 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "alley", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_ferryman",
+      "name": "阿渡",
+      "role": "船夫",
+      "tier": "T0",
+      "homeRoomId": "house_fisher",
+      "startRoomId": "wharf",
+      "attention": 0.7,
+      "skills": { "theft": 10, "perception": 60, "combat": 45, "persuasion": 40, "stealth": 30 },
+      "needs": { "hunger": 25, "fatigue": 20, "safety": 60, "social": 50, "coin": 45 },
+      "mood": { "fear": 0.15, "anger": 0.1, "trust": 0.6, "hope": 0.6, "suspicion": 0.1 },
+      "coins": 45,
+      "relationships": {
+        "npc_thief": { "trust": 0.9, "affinity": 0.9, "fear": 0.0 },
+        "npc_guard": { "trust": 0.3, "affinity": 0.1, "fear": 0.2 },
+        "npc_innkeeper": { "trust": 0.5, "affinity": 0.4, "fear": 0.0 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 84, "activity": "work", "roomId": "wharf", "priority": 3 },
+        { "startTick": 84, "endTick": 96, "activity": "drink", "roomId": "inn", "priority": 2 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "house_fisher", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_innkeeper",
+      "name": "贝恩",
+      "role": "店主",
+      "tier": "T0",
+      "homeRoomId": "inn",
+      "startRoomId": "inn",
+      "attention": 0.55,
+      "skills": { "theft": 5, "perception": 50, "combat": 20, "persuasion": 65, "stealth": 10 },
+      "needs": { "hunger": 20, "fatigue": 15, "safety": 65, "social": 70, "coin": 70 },
+      "mood": { "fear": 0.15, "anger": 0.1, "trust": 0.6, "hope": 0.65, "suspicion": 0.1 },
+      "coins": 70,
+      "relationships": {
+        "npc_drunk": { "trust": 0.5, "affinity": 0.4, "fear": 0.0 },
+        "npc_merchant": { "trust": 0.5, "affinity": 0.5, "fear": 0.0 },
+        "npc_ferryman": { "trust": 0.5, "affinity": 0.4, "fear": 0.0 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 96, "activity": "work", "roomId": "inn", "priority": 3 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "inn", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_thief",
+      "name": "阿潜",
+      "role": "船夫的儿子",
+      "tier": "T1",
+      "homeRoomId": "alley",
+      "startRoomId": "alley",
+      "attention": 0.85,
+      "skills": { "theft": 72, "perception": 65, "combat": 40, "persuasion": 35, "stealth": 70 },
+      "needs": { "hunger": 75, "fatigue": 30, "safety": 30, "social": 20, "coin": 3 },
+      "mood": { "fear": 0.3, "anger": 0.2, "trust": 0.2, "hope": 0.4, "suspicion": 0.5 },
+      "coins": 3,
+      "relationships": {
+        "npc_ferryman": { "trust": 0.9, "affinity": 0.9, "fear": 0.0 },
+        "npc_beggar": { "trust": 0.2, "affinity": 0.1, "fear": 0.1 },
+        "npc_child": { "trust": 0.1, "affinity": 0.0, "fear": 0.2 },
+        "npc_merchant": { "trust": 0.0, "affinity": 0.0, "fear": 0.1 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 24, "activity": "hide", "roomId": "alley", "priority": 2 },
+        { "startTick": 24, "endTick": 48, "activity": "case", "roomId": "market_square", "priority": 2 },
+        { "startTick": 48, "endTick": 72, "activity": "hide", "roomId": "alley", "priority": 2 },
+        { "startTick": 72, "endTick": 84, "activity": "case", "roomId": "market_square", "priority": 2 },
+        { "startTick": 84, "endTick": 96, "activity": "hide", "roomId": "alley", "priority": 2 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "alley", "priority": 4 }
+      ]
+    },
+    {
+      "id": "npc_widow",
+      "name": "伊芙",
+      "role": "寡妇",
+      "tier": "T1",
+      "homeRoomId": "house_widow",
+      "startRoomId": "house_widow",
+      "attention": 0.45,
+      "skills": { "theft": 3, "perception": 50, "combat": 5, "persuasion": 45, "stealth": 10 },
+      "needs": { "hunger": 30, "fatigue": 25, "safety": 55, "social": 40, "coin": 25 },
+      "mood": { "fear": 0.2, "anger": 0.15, "trust": 0.5, "hope": 0.45, "suspicion": 0.2 },
+      "coins": 25,
+      "relationships": {
+        "npc_child": { "trust": 0.9, "affinity": 0.9, "fear": 0.0 },
+        "npc_priest": { "trust": 0.7, "affinity": 0.6, "fear": 0.0 },
+        "npc_beggar": { "trust": 0.2, "affinity": 0.1, "fear": 0.2 }
+      },
+      "schedule": [
+        { "startTick": 0, "endTick": 48, "activity": "home", "roomId": "house_widow", "priority": 2 },
+        { "startTick": 48, "endTick": 72, "activity": "worship", "roomId": "temple", "priority": 2 },
+        { "startTick": 72, "endTick": 96, "activity": "trade", "roomId": "market_square", "priority": 2 },
+        { "startTick": 96, "endTick": 144, "activity": "sleep", "roomId": "house_widow", "priority": 4 }
+      ]
+    }
+  ],
+  "crowds": [
+    {
+      "id": "crowd_market",
+      "name": "集市人群",
+      "roomId": "market_square",
+      "size": 24,
+      "attention": 0.45,
+      "mood": { "fear": 0.2, "anger": 0.15, "trust": 0.55, "hope": 0.55, "suspicion": 0.2 }
+    },
+    {
+      "id": "crowd_wharf",
+      "name": "码头人群",
+      "roomId": "wharf",
+      "size": 14,
+      "attention": 0.4,
+      "mood": { "fear": 0.15, "anger": 0.1, "trust": 0.6, "hope": 0.6, "suspicion": 0.15 }
+    }
+  ],
+  "stocks": {
+    "market_square": { "bread": 60, "grain": 80, "fish": 30, "cloth": 40, "tools": 20 },
+    "inn": { "bread": 20, "fish": 15, "grain": 10 },
+    "wharf": { "fish": 80, "grain": 20 },
+    "warehouse": { "grain": 150, "fish": 100, "cloth": 60, "tools": 30 },
+    "temple": { "grain": 10 },
+    "house_merchant": { "bread": 8 },
+    "house_widow": { "bread": 3 },
+    "house_fisher": { "fish": 6 }
+  },
+  "specialPlans": [
+    {
+      "id": "plan_market_day",
+      "type": "market_day",
+      "placeId": "market",
+      "roomId": "market_square",
+      "startTick": 60,
+      "endTick": 66,
+      "direction": "集市日：人群聚集，交易时间延长。",
+      "stakes": 0.4,
+      "preconditions": [],
+      "branches": {
+        "onSuccess": "集市日照常，交易和传闻都变多。",
+        "onFailure": "天气扫兴，人群提前散场。"
+      },
+      "visibility": "public",
+      "createdBy": "canon"
+    }
+  ]
+}

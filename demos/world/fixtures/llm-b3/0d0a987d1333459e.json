@@ -1,0 +1,27 @@
+{
+  "request": {
+    "model": "deepseek-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是文字世界的中立事件导演（WorldDirector）。你只提出“世界上可能发生什么”的方向，不写结果。\n\n硬规则：\n- 只能提出 allowedTypes 里的类型；不能提出 actor 主动事件（不能写“某人决定去偷/杀/抓”）。\n- 只给 direction、stakes、preconditions、branches、visibility、reason、confidence；\n- direction 不能包含“成功了/失败了/他偷到了/她被抓住了”这类已定结果；结果由规则掷骰。\n- 只使用输入里出现的 place/room/actor/target ID；不要编造 ID。\n- 不读 PC 私有思想、NPC 隐藏记忆、未公开能力值。\n- 时间窗必须在 [tick, tick+6]，地点必须在给定 place/room。\n- 输出 1–3 个提案，JSON 对象，不要 markdown。\n\n只输出：\n{\"proposals\":[{\"type\":\"fog\",\"placeId\":\"market\",\"roomId\":\"market_square\",\"actorIds\":[],\"targetIds\":[],\"timeWindow\":{\"startTick\":0,\"endTick\":6},\"direction\":\"...\",\"stakes\":0.3,\"preconditions\":[],\"branches\":{\"onSuccess\":\"...\",\"onFailure\":\"...\"},\"visibility\":\"place\",\"reason\":\"...\",\"confidence\":0.6}]}"
+      },
+      {
+        "role": "user",
+        "content": "{\n  \"canon\": {\n    \"technology\": \"铁器、木船、油灯；没有火器。\",\n    \"supernatural\": \"神庙只提供安慰与仪式，没有可验证的神术。\",\n    \"law\": \"偷窃可处赔偿、鞭刑或短期拘禁；守卫可以凭目击或可信传闻盘问。\",\n    \"factions\": [\n      {\n        \"id\": \"f_market\",\n        \"name\": \"集市行会\",\n        \"interest\": \"秩序与交易\"\n      },\n      {\n        \"id\": \"f_law\",\n        \"name\": \"渡口守卫\",\n        \"interest\": \"治安与税收\"\n      }\n    ]\n  },\n  \"place\": {\n    \"id\": \"wharf\",\n    \"rooms\": [\n      {\n        \"id\": \"wharf\",\n        \"name\": \"码头\",\n        \"kind\": \"wharf\",\n        \"light\": \"bright\"\n      },\n      {\n        \"id\": \"warehouse\",\n        \"name\": \"仓库\",\n        \"kind\": \"warehouse\",\n        \"light\": \"dim\"\n      },\n      {\n        \"id\": \"inn\",\n        \"name\": \"渡口客栈\",\n        \"kind\": \"inn\",\n        \"light\": \"dim\"\n      },\n      {\n        \"id\": \"house_fisher\",\n        \"name\": \"船夫家\",\n        \"kind\": \"house\",\n        \"light\": \"dim\"\n      }\n    ],\n    \"stocks\": {\n      \"wharf\": {\n        \"fish\": 81,\n        \"grain\": 20\n      },\n      \"warehouse\": {\n        \"grain\": 156,\n        \"fish\": 92,\n        \"cloth\": 55,\n        \"tools\": 26\n      },\n      \"inn\": {\n        \"bread\": 20,\n        \"fish\": 15,\n        \"grain\": 9\n      },\n      \"house_fisher\": {\n        \"fish\": 6\n      }\n    },\n    \"prices\": {\n      \"bread\": 4.06,\n      \"grain\": 3.11,\n      \"fish\": 5.03,\n      \"cloth\": 5.98,\n      \"tools\": 11.76\n    },\n    \"climate\": {\n      \"placeId\": \"wharf\",\n      \"fear\": 0.16213511332148506,\n      \"anger\": 0.14629005882228097,\n      \"trust\": 0.597704117581729,\n      \"hope\": 0.597697270303484,\n      \"suspicion\": 0.1223597293263001,\n      \"updatedAtTick\": 0,\n      \"dominantNarrative\": \"渡船晚点\"\n    },\n    \"activeFacts\": [\n      {\n        \"id\": \"f_00001\",\n        \"kind\": \"event\",\n        \"salience\": 0.38,\n        \"summary\": \"渡船晚了，等船的人挤在码头的棚子下。\"\n      }\n    ],\n    \"activePlans\": [],\n    \"population\": 4,\n    \"roomIds\": [\n      \"wharf\",\n      \"warehouse\",\n      \"inn\",\n      \"house_fisher\"\n    ]\n  },\n  \"time\": {\n    \"tick\": 6,\n    \"label\": \"D1 07:00\",\n    \"lod\": \"coarse\",\n    \"pressure\": 1.09\n  },\n  \"allowedTypes\": [\n    \"structural\"\n  ],\n  \"roomId\": \"wharf\",\n  \"placeId\": \"wharf\",\n  \"budgetRemaining\": 8,\n  \"privacy\": \"不要读取观察者的私有想法、NPC 的隐藏记忆或未公开能力值。\"\n}"
+      }
+    ],
+    "temperature": 0.7,
+    "maxTokens": 900,
+    "responseFormat": "json",
+    "thinking": false
+  },
+  "response": {
+    "content": "{\"proposals\":[{\"type\":\"structural\",\"placeId\":\"wharf\",\"roomId\":\"wharf\",\"actorIds\":[],\"targetIds\":[],\"timeWindow\":{\"startTick\":6,\"endTick\":12},\"direction\":\"码头棚架因渡船延误聚集人群与货物，承重或绳索出现松动迹象\",\"stakes\":0.4,\"preconditions\":[],\"branches\":{\"onSuccess\":\"棚架局部倾斜，人群散开，部分货物落水或散落\",\"onFailure\":\"棚架维持原状，仅发出声响引起注意\"},\"visibility\":\"place\",\"reason\":\"渡船晚点导致码头拥挤，棚架承受额外压力，属于结构性风险\",\"confidence\":0.5},{\"type\":\"structural\",\"placeId\":\"wharf\",\"roomId\":\"warehouse\",\"actorIds\":[],\"targetIds\":[],\"timeWindow\":{\"startTick\":6,\"endTick\":12},\"direction\":\"仓库内堆放的粮袋因潮湿或堆叠不稳出现滑落趋势\",\"stakes\":0.3,\"preconditions\":[],\"branches\":{\"onSuccess\":\"部分粮袋滑落，通道受阻，可能影响搬运\",\"onFailure\":\"粮袋保持稳定，仅轻微移位\"},\"visibility\":\"room\",\"reason\":\"仓库光线昏暗且存放大量粮食，结构或堆放不稳可能引发滑落\",\"confidence\":0.45}]}",
+    "model": "deepseek-flash",
+    "usage": {
+      "promptTokens": 1106,
+      "completionTokens": 281
+    }
+  }
+}

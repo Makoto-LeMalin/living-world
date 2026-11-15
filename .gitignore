@@ -1,0 +1,23 @@
+# 密钥：绝不能提交
+.env
+.env.*
+!.env.example
+
+# 依赖与构建
+node_modules/
+dist/
+coverage/
+
+# 运行产物
+.cassette/
+data/runtime/
+reports/*.jsonl
+reports/parity-*
+reports/compiler-*
+reports/v3-*
+reports/world-*
+*.log
+
+# 系统
+.DS_Store
+Thumbs.db
