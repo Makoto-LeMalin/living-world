@@ -32,7 +32,7 @@
 - 登记其它会话产出的设计文档，**不改写设计内容**；
 - 发现文档与代码漂移时，登记为待修项，不自行判断技术正确性。
 
-本会话同时承担 Coordinator 与 Document Manager；文档管理不属于“设计/开发/测试/审计”四类，故不冲突。
+Coordinator 与 Document Manager 可由同一会话承担；文档管理不属于“设计/开发/测试/审计”四类，故不冲突。具体分工由阶段任务卡记录，不写死某个会话。
 
 ### 2.3 Designer（设计）
 
@@ -100,7 +100,7 @@
 - 未决问题；
 - 它明确不覆盖的范围。
 
-本会话只登记，不替设计会话补写内容。
+Coordinator 只登记，不替设计会话补写内容。
 
 ### 4.3 实现交接
 
@@ -159,7 +159,7 @@ Coordinator 根据 Auditor 结论登记准入。技术通过但流程失败 → 
 - 实现变更 → 只走 Implementer；
 - 测试标准变更 → 由 Designer 更新验收标准，Verifier 执行；
 - 审计标准变更 → 由 Auditor 提出，Coordinator 登记；
-- 本会话不改写设计，只登记与索引。
+- Coordinator 不改写设计，只登记与索引。
 
 ---
 
@@ -171,7 +171,7 @@ Coordinator 根据 Auditor 结论登记准入。技术通过但流程失败 → 
 | M1 | 技术 CONDITIONAL PASS，流程 FAIL | 代码保留；门禁需 R0 修复 |
 | R0 | 待开工 | 工作规范落实后分派 Implementer/Verifier/Auditor |
 | M2 | 冻结 | 等 R0 通过 + 设计产物 |
-| Channel / World / World Card 设计 | 其它会话 | 本会话只登记，不设计 |
+| Channel / World / World Card 设计 | 独立设计会话 | Coordinator 只登记，不设计 |
 
 ---
 
