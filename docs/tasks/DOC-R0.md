@@ -3,7 +3,7 @@
 | 项 | 内容 |
 |---|---|
 | 阶段 | DOC-R0（文档管理；不改变设计、代码、验收标准） |
-| 状态 | READY：Document Manager 执行 |
+| 状态 | COMPLETED（2026-11-16；残留产品代码文字另记） |
 | 依据 | [R0 验证报告](../verification/R0.md) §3.5、§9.3；[M0/M1 审计](../audits/M0-M1-AUDIT.md) I-4 |
 | 关系 | 与 [R0](R0.md) 并行；R0 的实现门禁另由 Implementer/Verifier/Auditor 负责 |
 
@@ -57,7 +57,22 @@ stage: DOC-R0
 task: docs/tasks/DOC-R0.md
 role matrix checked: yes
 write scopes: docs/** demos/*/README.md demos/world/DESIGN.md reports/README.md
-auditor verdict: pending
-coordinator admission: pending
+auditor verdict: covered by docs/audits/R0-AUDIT.md（文档项）
+coordinator admission: completed（文档项）；设计文档所有者对 §6 偏差的确认仍待定
 date: 2026-11-16
 ```
+
+## 8. 完成记录
+
+已完成：
+
+- `demos/world/DESIGN.md`、`demos/world/README.md`、`demos/embodied/README.md` 的 kernel/共享代码漂移已修；
+- `docs/VALIDATION.md`、`docs/DEMO_PLAN.md` 的 gitignored 报告断链已改为“运行 `pnpm report:world` 本地生成”；
+- `docs/DEVELOPMENT_PLAN.md` 的 P0 167 表述已标注时点，当前命令改为 `pnpm report:world`；
+- `reports/README.md` 的 194 基线与报告生成说明已修；
+- 全仓已无指向 `reports/world-validation.*` / `reports/world-b3-validation.*` 的 Markdown 链接。
+
+残留（不在文档范围）：
+
+- 生成报告头仍由 `demos/world/src/run.ts` / `b3-run.ts` 写裸 CLI；属产品代码文字，另任务。
+- 设计文档所有者对 `demos/world/DESIGN.md` 模块职责表事实同步的确认仍待定；见 R0 §11 条件 2。

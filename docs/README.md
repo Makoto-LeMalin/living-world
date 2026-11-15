@@ -16,6 +16,7 @@
 | [tasks/DESIGN-WC-01.md](tasks/DESIGN-WC-01.md) | 世界卡模块与角色/世界契约：设计任务卡 | 设计任务 |
 | [verification/R0.md](verification/R0.md) | R0 独立验证：命令、负向探针、测试有效性与覆盖 | 验证结论 |
 | [audits/M0-M1-AUDIT.md](audits/M0-M1-AUDIT.md) | M0/M1 独立审计：技术 CONDITIONAL PASS、流程 FAIL | 审计结论 |
+| [audits/R0-AUDIT.md](audits/R0-AUDIT.md) | R0 独立审计：技术 PASS、流程 PASS（附条件）、准入 conditional | 审计结论 |
 | [DEPENDENCIES.md](DEPENDENCIES.md) | 模块允许依赖矩阵与禁止反向依赖规则 | 低于 ARCHITECTURE |
 | [RISKS.md](RISKS.md) | 风险登记：触发信号、影响、缓解、审查点 | 执行跟踪 |
 | [adr/](adr/README.md) | ADR-1–10：事件真相、同步 tick、真实时间比例、Compiler 边界、DM 盲测等 | 已接受决策 |
