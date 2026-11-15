@@ -19,6 +19,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { runSuites } from "./lib/test-suites.mjs";
+import { freshnessErrors } from "./lib/report-stamp.mjs";
 
 const B2_PATH = "reports/world-validation.json";
 const B3_PATH = "reports/world-b3-validation.json";
@@ -27,6 +28,29 @@ const PROBE_CASSETTE_DIR = "demos/world/fixtures/llm";
 const EXPECTED_PATH = "reports/baseline.expected.json";
 const OUT_MD = "reports/baseline.md";
 const OUT_JSON = "reports/baseline.json";
+const EXPECTED_SCHEMA_VERSION = 2;
+const SOURCE_KEYS = ["ambient", "actor", "special", "system"];
+const TOP_KEYS = new Set(["schemaVersion", "seed", "days", "tests", "b2", "b3", "cassettes"]);
+const TEST_KEYS = new Set(["embodied", "world", "kernel", "total"]);
+const B2_KEYS = new Set(["events", "eventsBySource", "projectionHash", "fullHash", "expectedGateIds"]);
+const B3_KEYS = new Set([
+  "events",
+  "eventsBySource",
+  "replayHash",
+  "replayIdentical",
+  "tierChanges",
+  "promotions",
+  "demotions",
+  "crowdIndividualizations",
+  "crowdMerges",
+  "directorAttempts",
+  "directorProposals",
+  "dialogueCalls",
+  "llmSources",
+  "cassetteMisses",
+  "expectedGateIds",
+]);
+const CASSETTE_KEYS = new Set(["b3", "probe"]);
 
 const TEST_FIELDS = ["embodied", "world", "kernel", "total"];
 const B2_FIELDS = ["events", "eventsBySource", "projectionHash", "fullHash"];
@@ -78,6 +102,114 @@ function valueErrors(label, actual, expected, fields) {
   }
   return errors;
 }
+
+/** 期望基线文件的 schema 校验：版本、必需字段、类型、未知字段。 */
+function expectedSchemaErrors(expected) {
+  const errors = [];
+  const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+  const isCount = (value) => Number.isInteger(value) && value >= 0;
+  const isNonEmptyString = (value) => typeof value === "string" && value.length > 0;
+
+  const checkObject = (label, value, allowedKeys, requiredKeys) => {
+    if (!isObject(value)) {
+      errors.push(`${label}: 必须是对象`);
+      return false;
+    }
+    for (const key of Object.keys(value)) {
+      if (!allowedKeys.has(key)) errors.push(`${label}: 未知字段 "${key}"`);
+    }
+    for (const key of requiredKeys) {
+      if (!(key in value)) errors.push(`${label}: 缺少必需字段 "${key}"`);
+    }
+    return true;
+  };
+
+  const checkCounts = (label, value, keys) => {
+    if (!isObject(value)) {
+      errors.push(`${label}: 必须是对象`);
+      return false;
+    }
+    for (const key of keys) {
+      if (!isCount(value[key])) errors.push(`${label}.${key}: 必须是非负整数`);
+    }
+    return true;
+  };
+
+  const checkGateIds = (label, value) => {
+    if (!Array.isArray(value) || value.length === 0) {
+      errors.push(`${label}: expectedGateIds 必须是非空数组`);
+      return;
+    }
+    value.forEach((id, index) => {
+      if (!isNonEmptyString(id)) errors.push(`${label}.expectedGateIds[${index}]: 必须是非空字符串`);
+    });
+  };
+
+  const checkSourceMap = (label, value) => {
+    if (!isObject(value)) {
+      errors.push(`${label}: eventsBySource 必须是对象`);
+      return;
+    }
+    for (const key of Object.keys(value)) {
+      if (!isCount(value[key])) errors.push(`${label}.eventsBySource.${key}: 必须是非负整数`);
+    }
+    for (const key of SOURCE_KEYS) {
+      if (!(key in value)) errors.push(`${label}.eventsBySource: 缺少来源 "${key}"`);
+    }
+  };
+
+  if (!checkObject("expected", expected, TOP_KEYS, [...TOP_KEYS])) return errors;
+
+  if (expected.schemaVersion !== EXPECTED_SCHEMA_VERSION) {
+    errors.push(`expected.schemaVersion: 期望 ${EXPECTED_SCHEMA_VERSION}，实际 ${JSON.stringify(expected.schemaVersion)}`);
+  }
+  if (!(typeof expected.seed === "string" || typeof expected.seed === "number")) {
+    errors.push("expected.seed: 必须是字符串或数字");
+  }
+  if (!isCount(expected.days) || expected.days === 0) {
+    errors.push("expected.days: 必须是正整数");
+  }
+
+  if (checkObject("expected.tests", expected.tests, TEST_KEYS, [...TEST_KEYS])) {
+    if (checkCounts("expected.tests", expected.tests, [...TEST_KEYS])) {
+      const sum = expected.tests.embodied + expected.tests.world + expected.tests.kernel;
+      if (expected.tests.total !== sum) {
+        errors.push(`expected.tests.total: ${expected.tests.total} != 各 suite 之和 ${sum}`);
+      }
+    }
+  }
+
+  if (checkObject("expected.b2", expected.b2, B2_KEYS, [...B2_KEYS])) {
+    if (!isCount(expected.b2.events)) errors.push("expected.b2.events: 必须是非负整数");
+    checkSourceMap("expected.b2", expected.b2.eventsBySource);
+    for (const key of ["projectionHash", "fullHash"]) {
+      if (!isNonEmptyString(expected.b2[key])) errors.push(`expected.b2.${key}: 必须是非空字符串`);
+    }
+    checkGateIds("expected.b2", expected.b2.expectedGateIds);
+  }
+
+  if (checkObject("expected.b3", expected.b3, B3_KEYS, [...B3_KEYS])) {
+    if (!isCount(expected.b3.events)) errors.push("expected.b3.events: 必须是非负整数");
+    checkSourceMap("expected.b3", expected.b3.eventsBySource);
+    if (!isNonEmptyString(expected.b3.replayHash)) errors.push("expected.b3.replayHash: 必须是非空字符串");
+    if (typeof expected.b3.replayIdentical !== "boolean") {
+      errors.push("expected.b3.replayIdentical: 必须是布尔值");
+    }
+    for (const key of B3_KEYS) {
+      if (key === "events" || key === "eventsBySource" || key === "replayHash") continue;
+      if (key === "replayIdentical" || key === "expectedGateIds") continue;
+      if (!isCount(expected.b3[key])) errors.push(`expected.b3.${key}: 必须是非负整数`);
+    }
+    checkGateIds("expected.b3", expected.b3.expectedGateIds);
+  }
+
+  if (checkObject("expected.cassettes", expected.cassettes, CASSETTE_KEYS, [...CASSETTE_KEYS])) {
+    checkCounts("expected.cassettes", expected.cassettes, [...CASSETTE_KEYS]);
+  }
+
+  return errors;
+}
+
 
 /**
  * 门集合校验：expectedGateIds 与报告门 id 集合必须相等。
@@ -133,10 +265,16 @@ function actualFromReports() {
   }
 
   const byName = Object.fromEntries(tests.suites.map((suite) => [suite.name, suite.tests]));
+  const countsBy = (field) => Object.fromEntries(tests.suites.map((suite) => [suite.name, suite[field]]));
+  const totalOf = (counts) => counts.embodied + counts.world + counts.kernel;
   const testSum = TEST_FIELDS.filter((field) => field !== "total").reduce(
     (sum, field) => sum + byName[field],
     0,
   );
+  const pass = countsBy("pass");
+  const skipped = countsBy("skipped");
+  const todo = countsBy("todo");
+  const cancelled = countsBy("cancelled");
 
   return {
     seed: b2.seed ?? b3.full?.seed ?? "7",
@@ -146,6 +284,10 @@ function actualFromReports() {
       world: byName.world,
       kernel: byName.kernel,
       total: tests.total,
+      pass: { ...pass, total: totalOf(pass) },
+      skipped: { ...skipped, total: totalOf(skipped) },
+      todo: { ...todo, total: totalOf(todo) },
+      cancelled: { ...cancelled, total: totalOf(cancelled) },
     },
     testSum,
     b2: {
@@ -185,7 +327,12 @@ function expectedFromActual(actual) {
     schemaVersion: 2,
     seed: actual.seed,
     days: actual.days,
-    tests: { ...actual.tests },
+    tests: {
+      embodied: actual.tests.embodied,
+      world: actual.tests.world,
+      kernel: actual.tests.kernel,
+      total: actual.tests.total,
+    },
     b2: {
       events: actual.b2.events,
       eventsBySource: actual.b2.eventsBySource,
@@ -224,7 +371,8 @@ function buildBaselineJson(actual, b2GateResult, b3GateResult) {
     days: actual.days,
     tests: {
       ...actual.tests,
-      verifiedBy: "parsed from actual test output (scripts/lib/test-suites.mjs)",
+      verifiedBy:
+        "parsed from actual test output (scripts/lib/test-suites.mjs; pass==tests, skipped/todo/cancelled==0)",
     },
     b2: {
       events: actual.b2.events,
@@ -269,10 +417,10 @@ function buildBaselineMd(actual, expected, b2GateResult, b3GateResult) {
     "",
     "## 测试（由实际测试输出解析，不硬编码）",
     "",
-    `- 具身：${actual.tests.embodied} 通过 / ${expected.tests.embodied} 期望`,
-    `- 世界：${actual.tests.world} 通过 / ${expected.tests.world} 期望`,
-    `- 共享内核：${actual.tests.kernel} 通过 / ${expected.tests.kernel} 期望`,
-    `- 合计：${actual.tests.total} 通过 / ${expected.tests.total} 期望`,
+    `- 具身：${actual.tests.pass.embodied} 通过 / ${expected.tests.embodied} 期望（skip ${actual.tests.skipped.embodied}，todo ${actual.tests.todo.embodied}）`,
+    `- 世界：${actual.tests.pass.world} 通过 / ${expected.tests.world} 期望（skip ${actual.tests.skipped.world}，todo ${actual.tests.todo.world}）`,
+    `- 共享内核：${actual.tests.pass.kernel} 通过 / ${expected.tests.kernel} 期望（skip ${actual.tests.skipped.kernel}，todo ${actual.tests.todo.kernel}）`,
+    `- 合计：${actual.tests.pass.total} 通过 / ${expected.tests.total} 期望（skip ${actual.tests.skipped.total}，todo ${actual.tests.todo.total}）`,
     "",
     "## B2",
     "",
@@ -336,6 +484,17 @@ function main() {
     return;
   }
 
+  // Round 2：先验报告新鲜度。本命令不重生成 report；陈旧报告会让单命令假绿（P12）。
+  const freshness = freshnessErrors();
+  if (freshness.length > 0) {
+    console.error(
+      "报告新鲜度检查失败：本命令不重生成 B2/B3 报告，需先运行 `pnpm report:world`（`pnpm verify` / CI 已包含该步骤）。",
+    );
+    for (const message of freshness) console.error(`- ${message}`);
+    process.exitCode = 1;
+    return;
+  }
+
   const actual = actualFromReports();
 
   if (accept) {
@@ -367,6 +526,13 @@ function main() {
 
     const previous = existsSync(EXPECTED_PATH) ? readJson(EXPECTED_PATH) : null;
     const next = expectedFromActual(actual);
+    const nextSchemaErrors = expectedSchemaErrors(next);
+    if (nextSchemaErrors.length > 0) {
+      console.error("拒绝接受新基线：生成的期望文件未通过 schema 校验。");
+      for (const message of nextSchemaErrors) console.error(`- ${message}`);
+      process.exitCode = 1;
+      return;
+    }
     mkdirSync("reports", { recursive: true });
     writeFileSync(EXPECTED_PATH, `${JSON.stringify(next, null, 2)}\n`, "utf8");
     console.log(`! 已显式接受新基线 -> ${EXPECTED_PATH}`);
@@ -398,6 +564,7 @@ function main() {
 
   const expected = readJson(EXPECTED_PATH);
   const errors = [];
+  errors.push(...expectedSchemaErrors(expected));
   errors.push(...valueErrors("tests", actual.tests, expected.tests, TEST_FIELDS));
   errors.push(...valueErrors("b2", actual.b2, expected.b2, B2_FIELDS));
   errors.push(...valueErrors("b3", actual.b3, expected.b3, B3_FIELDS));
@@ -420,9 +587,14 @@ function main() {
 
   writeReports(actual, expected, b2GateResult, b3GateResult);
   console.log(
-    `ok: 基线一致（测试 ${actual.tests.total} 通过 / ${expected.tests.total} 期望；` +
+    `ok: 基线一致（测试 ${actual.tests.pass.total} 通过 / ${expected.tests.total} 期望；` +
+      `skipped ${actual.tests.skipped.total}；todo ${actual.tests.todo.total}；` +
       `B2 门 ${b2GateResult.passed} 通过 / ${b2GateResult.expected} 期望；` +
       `B3 门 ${b3GateResult.passed} 通过 / ${b3GateResult.expected} 期望）`,
+  );
+  console.log("报告新鲜度：ok（源码/夹具内容指纹与 report 印记一致）");
+  console.log(
+    "note: 本地 pnpm verify 不检查 git worktree 是否干净（CI 另有 git diff --exit-code 断言）；本地绿 ≠ CI 绿。",
   );
   console.log(`wrote ${OUT_JSON}`);
   console.log(`wrote ${OUT_MD}`);

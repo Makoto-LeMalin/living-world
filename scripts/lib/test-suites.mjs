@@ -6,6 +6,10 @@
  * 事后再读回并解析，既不依赖 pipe，也保证计数来自实际测试输出而不是字面量。
  *
  * 三个 suite 与 `pnpm test:all` 完全一致（顺序也一致）。
+ *
+ * 有效性约束（R0 Round 2）：`skipped` / `todo` / `cancelled` 非 0 即失败，
+ * 且 `pass` 必须等于 `tests`。只比较 `tests` 与 `fail===0` 会让一个 `test.skip`
+ * 保持全绿，探针 N3a 已证明该缺口。
  */
 
 import { spawnSync } from "node:child_process";
@@ -29,7 +33,7 @@ function lastCount(text, label) {
   return value;
 }
 
-/** 从一份 node:test 输出中解析 tests/pass/fail。 */
+/** 从一份 node:test 输出中解析 tests/pass/fail/skipped/todo/cancelled。 */
 export function parseTestCounts(text) {
   const clean = text.replace(ANSI, "");
   const tests = lastCount(clean, "tests");
@@ -38,7 +42,14 @@ export function parseTestCounts(text) {
   if (tests === null || pass === null || fail === null) {
     throw new Error("无法从测试输出解析 ℹ tests/pass/fail 计数");
   }
-  return { tests, pass, fail };
+  return {
+    tests,
+    pass,
+    fail,
+    skipped: lastCount(clean, "skipped") ?? 0,
+    todo: lastCount(clean, "todo") ?? 0,
+    cancelled: lastCount(clean, "cancelled") ?? 0,
+  };
 }
 
 /**
@@ -46,7 +57,7 @@ export function parseTestCounts(text) {
  *
  * @param {{ forward?: boolean, cwd?: string, requirePass?: boolean }} options
  *   forward: 是否把子进程输出转发到当前 stdout（测试门用 true，基线门用 false）。
- *   requirePass: 有失败测试时是否记为 failure。
+ *   requirePass: 有失败/跳过/待办/取消测试时是否记为 failure。
  * @returns {{ suites: Array<object>, total: number|null, failures: string[], ok: boolean }}
  */
 export function runSuites({ forward = true, cwd = process.cwd(), requirePass = true } = {}) {
@@ -73,7 +84,16 @@ export function runSuites({ forward = true, cwd = process.cwd(), requirePass = t
 
       if (result.error) {
         failures.push(`${suite.name}: 无法启动测试进程 (${result.error.code ?? result.error.message})`);
-        suites.push({ name: suite.name, tests: null, pass: null, fail: null, status: null });
+        suites.push({
+          name: suite.name,
+          tests: null,
+          pass: null,
+          fail: null,
+          skipped: null,
+          todo: null,
+          cancelled: null,
+          status: null,
+        });
         continue;
       }
 
@@ -82,13 +102,32 @@ export function runSuites({ forward = true, cwd = process.cwd(), requirePass = t
         counts = parseTestCounts(text);
       } catch (error) {
         failures.push(`${suite.name}: ${error.message}`);
-        suites.push({ name: suite.name, tests: null, pass: null, fail: null, status: result.status });
+        suites.push({
+          name: suite.name,
+          tests: null,
+          pass: null,
+          fail: null,
+          skipped: null,
+          todo: null,
+          cancelled: null,
+          status: result.status,
+        });
         continue;
       }
 
       suites.push({ name: suite.name, ...counts, status: result.status });
+      if (!requirePass) continue;
+
       if (result.status !== 0) failures.push(`${suite.name}: 进程退出码 ${result.status}`);
-      if (requirePass && counts.fail !== 0) failures.push(`${suite.name}: ${counts.fail} 个测试失败`);
+      if (counts.fail !== 0) failures.push(`${suite.name}: ${counts.fail} 个测试失败`);
+      if (counts.skipped !== 0) failures.push(`${suite.name}: ${counts.skipped} 个 skipped 测试（skipped 必须为 0）`);
+      if (counts.todo !== 0) failures.push(`${suite.name}: ${counts.todo} 个 todo 测试（todo 必须为 0）`);
+      if (counts.cancelled !== 0) failures.push(`${suite.name}: ${counts.cancelled} 个 cancelled 测试（cancelled 必须为 0）`);
+      if (counts.pass !== counts.tests) {
+        failures.push(
+          `${suite.name}: pass ${counts.pass} != tests ${counts.tests}（存在未通过/跳过/待办/取消）`,
+        );
+      }
     }
   } finally {
     rmSync(dir, { recursive: true, force: true });

@@ -20,8 +20,9 @@
     "typecheck": "tsc -p tsconfig.json",
     "baseline": "node scripts/baseline.mjs --check",
     "check:baseline": "node scripts/baseline.mjs --check",
-    "baseline:accept": "node scripts/baseline.mjs --accept",
-    "verify": "pnpm typecheck && pnpm check:imports && pnpm test:all && pnpm check:secrets && node demos/world/src/cli.ts report && pnpm check:baseline",
+    "baseline:accept": "node scripts/report.mjs && node scripts/baseline.mjs --accept",
+    "report:world": "node scripts/report.mjs",
+    "verify": "pnpm typecheck && pnpm check:imports && pnpm test:all && pnpm check:secrets && node scripts/report.mjs && pnpm check:baseline",
     "verify:ci": "pnpm verify"
   },
   "devDependencies": {

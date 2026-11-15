@@ -10,7 +10,31 @@
     "world": 67,
     "kernel": 27,
     "total": 194,
-    "verifiedBy": "parsed from actual test output (scripts/lib/test-suites.mjs)"
+    "pass": {
+      "embodied": 100,
+      "world": 67,
+      "kernel": 27,
+      "total": 194
+    },
+    "skipped": {
+      "embodied": 0,
+      "world": 0,
+      "kernel": 0,
+      "total": 0
+    },
+    "todo": {
+      "embodied": 0,
+      "world": 0,
+      "kernel": 0,
+      "total": 0
+    },
+    "cancelled": {
+      "embodied": 0,
+      "world": 0,
+      "kernel": 0,
+      "total": 0
+    },
+    "verifiedBy": "parsed from actual test output (scripts/lib/test-suites.mjs; pass==tests, skipped/todo/cancelled==0)"
   },
   "b2": {
     "events": 668,
