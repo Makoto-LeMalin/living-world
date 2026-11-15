@@ -10,12 +10,17 @@
 
 ```
 living-world/
+├── AGENTS.md                工作规范：角色互斥、阶段准入、证据规则
 ├── docs/                    需求与方案（单一真相源）
 │   ├── PRD.md               产品需求 v0.2
 │   ├── DESIGN.md            实现备忘（可改，不构成需求）
 │   ├── ARCHITECTURE.md      整体架构：分层、契约、运行时、LLM、通信、存储、迁移
 │   ├── DEVELOPMENT_PLAN.md  逐步开发方案：M0–M6、任务、门、估算、失败分支
 │   ├── M1.md                M1 抽共享内核：模块边界、兼容性证据
+│   ├── PROCESS.md           角色互斥、阶段协议、交接物、证据规则
+│   ├── DECISIONS.md         用户/设计会话决定登记
+│   ├── tasks/               阶段任务卡与角色矩阵
+│   ├── audits/              独立审计报告
 │   ├── DEPENDENCIES.md      模块允许依赖矩阵
 │   ├── RISKS.md             风险登记
 │   ├── adr/                 ADR-1–10
@@ -90,6 +95,10 @@ living-world/
 | 世界 B4：chronicle / metrics / WB 报告 | 🟡 报告与 chronicle 已生成；人工评审未做 |
 | 工程化 P0：verify / 基线 / 契约 / 依赖 / ADR / 风险 | ✅ `pnpm verify`；基线 [reports/baseline.md](reports/baseline.md) |
 | M1：抽共享内核 | ✅ kernel/space/world/harness；194 测试；B2/B3 hash 与 M0 一致；[docs/M1.md](docs/M1.md) |
+| 工作规范：角色互斥 | ✅ [AGENTS.md](AGENTS.md) / [docs/PROCESS.md](docs/PROCESS.md)；M0/M1 流程 FAIL |
+| M0/M1 独立审计 | ✅ 技术 CONDITIONAL PASS；流程 FAIL；[报告](docs/audits/M0-M1-AUDIT.md) |
+| R0：门禁证据修复 | 🟡 任务卡已建；待分派 Implementer/Verifier/Auditor |
+| M2：统一角色 | ⛔ 冻结（等 R0 通过 + 设计产物） |
 
 ## 运行
 

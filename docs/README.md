@@ -9,6 +9,10 @@
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 整体架构：分层、核心契约、运行时、LLM、通信、存储、迁移 | 低于 PRD，高于 demo 细节 |
 | [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) | 执行级逐步开发方案：M0–M6、任务、依赖、门、估算、失败分支 | 低于 ARCHITECTURE |
 | [M1.md](M1.md) | M1 抽共享内核：模块边界、EventStore/Projection、兼容性证据 | 执行记录 |
+| [PROCESS.md](PROCESS.md) | 角色互斥、阶段协议、交接物、证据规则 | 工作规范 |
+| [DECISIONS.md](DECISIONS.md) | 用户/设计会话决定登记（Channel、世界卡、内容框架、R0 顺序） | 设计输入 |
+| [tasks/R0.md](tasks/R0.md) | R0 门禁修复任务卡与角色矩阵 | 执行任务 |
+| [audits/M0-M1-AUDIT.md](audits/M0-M1-AUDIT.md) | M0/M1 独立审计：技术 CONDITIONAL PASS、流程 FAIL | 审计结论 |
 | [DEPENDENCIES.md](DEPENDENCIES.md) | 模块允许依赖矩阵与禁止反向依赖规则 | 低于 ARCHITECTURE |
 | [RISKS.md](RISKS.md) | 风险登记：触发信号、影响、缓解、审查点 | 执行跟踪 |
 | [adr/](adr/README.md) | ADR-1–10：事件真相、同步 tick、真实时间比例、Compiler 边界、DM 盲测等 | 已接受决策 |
