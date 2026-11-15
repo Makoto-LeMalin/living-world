@@ -51,3 +51,6 @@ jobs:
 
       - name: Assert expected baseline was not rewritten
         run: git diff --exit-code -- reports/baseline.expected.json
+
+      - name: Assert generated baseline reports match committed artifacts
+        run: git diff --exit-code -- reports/baseline.json reports/baseline.md
