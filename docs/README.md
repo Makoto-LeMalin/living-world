@@ -12,6 +12,8 @@
 | [PROCESS.md](PROCESS.md) | 角色互斥、阶段协议、交接物、证据规则 | 工作规范 |
 | [DECISIONS.md](DECISIONS.md) | 用户/设计会话决定登记（Channel、世界卡、内容框架、R0 顺序） | 设计输入 |
 | [tasks/R0.md](tasks/R0.md) | R0 门禁修复任务卡与角色矩阵 | 执行任务 |
+| [tasks/DOC-R0.md](tasks/DOC-R0.md) | R0 文档残留修正（断链/历史表述） | 执行任务 |
+| [verification/R0.md](verification/R0.md) | R0 独立验证：命令、负向探针、测试有效性与覆盖 | 验证结论 |
 | [audits/M0-M1-AUDIT.md](audits/M0-M1-AUDIT.md) | M0/M1 独立审计：技术 CONDITIONAL PASS、流程 FAIL | 审计结论 |
 | [DEPENDENCIES.md](DEPENDENCIES.md) | 模块允许依赖矩阵与禁止反向依赖规则 | 低于 ARCHITECTURE |
 | [RISKS.md](RISKS.md) | 风险登记：触发信号、影响、缓解、审查点 | 执行跟踪 |

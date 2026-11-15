@@ -281,7 +281,7 @@ pnpm demo:embodied compiler --replay
 
 **结论**：B0–B2 的规则/事件/传播/返回机制可运行、可回放、可查询；硬编码时点已大幅收敛。B3 在同一世界上补齐 CharacterRuntime/T0–T3/群体/预算，并跑完整 3 天真实 LLM。
 
-完整报告：[../reports/world-validation.md](../reports/world-validation.md)。
+完整报告：运行 `node demos/world/src/cli.ts report` 生成 `reports/world-validation.md`（本地，gitignored）。
 
 ## 4.6 世界 demo B3（已执行，完整）
 
@@ -318,7 +318,7 @@ pnpm demo:embodied compiler --replay
 
 **结论**：B3 的 CM-1/5/6/7/8 全部有可执行检查，完整 3 天走真实 LLM 并可复现；NPC 动作仍 100% 规则，LLM 只提案/说话。
 
-完整报告：[../reports/world-b3-validation.md](../reports/world-b3-validation.md)。
+完整报告：运行 `node demos/world/src/cli.ts report` 生成 `reports/world-b3-validation.md`（本地，gitignored）。
 
 ---
 

@@ -78,7 +78,7 @@ M3 是第一个真正的“合并证明”；在它通过之前，不做全量 U
 ### 2.3 G0 通过条件
 
 - `pnpm typecheck` 0 错误。
-- `pnpm test:all`：100 + 67 = **167 全绿**。
+- `pnpm test:all`：100 + 67 = **167 全绿**（P0 时点；M1 后为 100 + 67 + 27 = 194）。
 - `node demos/world/src/cli.ts report`：B2 12/12、B3 13/13。
 - `node scripts/check-secrets.mjs` 通过。
 - 固定 seed 的事件日志/hash 记录在 `reports/baseline.md`。
@@ -92,7 +92,7 @@ M3 是第一个真正的“合并证明”；在它通过之前，不做全量 U
 
 P0 已完成：
 
-- `pnpm verify`：typecheck + 167 测试 + secrets + B2/B3 report + baseline。
+- `pnpm verify`：typecheck + 167 测试 + secrets + B2/B3 report + baseline（P0 时点；M1 后为 194 测试 + `check:imports` + 基线对照）。
 - 基线：[reports/baseline.md](../reports/baseline.md) / [.json](../reports/baseline.json)。
 - 契约：[src/contracts/index.ts](../src/contracts/index.ts)。
 - 依赖矩阵：[docs/DEPENDENCIES.md](DEPENDENCIES.md)。
