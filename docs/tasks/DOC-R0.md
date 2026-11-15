@@ -58,7 +58,7 @@ task: docs/tasks/DOC-R0.md
 role matrix checked: yes
 write scopes: docs/** demos/*/README.md demos/world/DESIGN.md reports/README.md
 auditor verdict: covered by docs/audits/R0-AUDIT.md（文档项）
-coordinator admission: completed（文档项）；设计文档所有者对 §6 偏差的确认仍待定
+coordinator admission: completed（文档项）；设计文档所有者已于 2026-11-16 追认 §6 偏差为事实同步，待 Auditor 复核
 date: 2026-11-16
 ```
 
@@ -75,4 +75,4 @@ date: 2026-11-16
 残留（不在文档范围）：
 
 - 生成报告头仍由 `demos/world/src/run.ts` / `b3-run.ts` 写裸 CLI；属产品代码文字，另任务。
-- 设计文档所有者对 `demos/world/DESIGN.md` 模块职责表事实同步的确认仍待定；见 R0 §11 条件 2。
+- 设计文档所有者已于 2026-11-16 追认 `demos/world/DESIGN.md` 模块职责表与 `reports/README.md` 的修改为事实同步；待 R0 Auditor 复核。
