@@ -6,7 +6,7 @@
 | 状态 | 架构提案，待评审；与 PRD 冲突时以 PRD 为准 |
 | 上游 | [PRD.md](PRD.md)、[DESIGN.md](DESIGN.md)、[DEMO_PLAN.md](DEMO_PLAN.md)、[CHARACTER_MODEL.md](CHARACTER_MODEL.md) |
 | 执行计划 | 逐步任务、依赖与门见 [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) |
-| 依据 | 具身 demo（100 测试）与世界 demo（67 测试、B2 12/12、B3 13/13）的实测结论 |
+| 依据 | 具身 demo（100 测试）、世界 demo（67 测试、B2 12/12、B3 13/13）、共享内核（27 测试）的实测结论 |
 | 范围 | 引擎、角色、世界、LLM、通信、存储、宿主、验证；不含排期与商业决策 |
 | 不做什么 | 多用户、真实社交平台、多模态、图形地图、平台 SDK、模型训练 |
 

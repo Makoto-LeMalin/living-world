@@ -256,7 +256,7 @@ pnpm demo:embodied compiler --replay
 
 ### 已执行
 
-1. **B0**：20 个 seed 的 `WorldBuilder` + `InvariantCheck`；同 seed 5 次事件日志字节级一致；JSONL + snapshot 写读。
+1. **B0**：20 个 seed 的 `WorldBuilder` + `InvariantCheck`；同 seed 5 次事件日志内容哈希一致；JSONL + snapshot 写读。
 2. **B1**：seed 7 跑 3 天 432 tick；10 NPC × 432 = 4320 NPC-tick；日程遵循 100%；无负资源/卡死。
 3. **B2**：盗窃、火灾、传闻/执法/价格/痕迹；A→B→A 的 `DepartureSnapshot → ReturnDiff → Echo`；D4 三个 NPC 问话。
 4. **三源**：668 事件；ambient 33 / actor 504 / special 3 / system 128；WorldDirector 5 个计划、ActionDM 1 个计划、canon 1 个计划。

@@ -5,7 +5,7 @@
 | 版本 | v1.0（2026-11-15） |
 | 状态 | 执行级计划，待评审 |
 | 上游 | [PRD.md](PRD.md)、[ARCHITECTURE.md](ARCHITECTURE.md)、[DEMO_PLAN.md](DEMO_PLAN.md) |
-| 当前基线 | 具身 100 测试；世界 67 测试；B2 12/12；B3 13/13；完整 3 天真实 LLM 760 事件 |
+| 当前基线 | 具身 100；世界 67；共享内核 27；B2 12/12；B3 13/13；完整 3 天真实 LLM 760 事件 |
 | 计划范围 | 从两个 demo 走到一个可连续运行的产品骨架；不含多用户、多模态、图形地图 |
 | 估算口径 | 1–2 名工程师，粗略人日；不是交付承诺 |
 
@@ -24,7 +24,7 @@
 | 阶段 | 目标 | 门 | 估算 |
 |---|---|---|---|
 | M0 冻结 | 固定基线、契约、验证命令 | G0：167 测试全绿，B2/B3 报告可复现 | 1–2 人日 |
-| M1 抽内核 | kernel/space/event/projection 共享化 | G1：两 demo 行为不变，事件日志字节一致 | 3–5 人日 |
+| M1 抽内核 | kernel/space/event/projection 共享化 | G1：两 demo 行为不变，事件日志内容哈希一致 | 3–5 人日 |
 | M2 统一角色 | 一套 CharacterRuntime + BodyProvider | G2：CM-1/6/7；B3 13/13 不回退 | 5–7 人日 |
 | M3 端到端竖切 | 一条“用户消息 → 身体 → 判定 → 世界事件 → 叙述” | G3：单房间竖切可回放；T1 代理 0 冲突 | 6–9 人日 |
 | M4 连续性与通信 | Channel、五类记忆、Persona、主动消息 | G4：T8/T9；记忆可追溯；Persona 可回滚 | 8–12 人日 |
@@ -109,7 +109,7 @@ P0 已完成：
 
 把两个 demo 已经重复/即将重复的部分抽成共享模块；**行为不变**。
 
-实现方案与完成记录见 [M1.md](M1.md)：kernel/space/world 的模块边界、EventStore/Projection 拆分、字节级兼容策略。
+实现方案与完成记录见 [M1.md](M1.md)：kernel/space/world 的模块边界、EventStore/Projection 拆分、内容哈希兼容策略。
 
 ### 3.2 任务
 
@@ -126,7 +126,7 @@ P0 已完成：
 
 - 两个 demo 的测试数不减少，全部通过（100 + 67）。
 - 共享内核测试：27 条（clock/kernel/space/event-store）。
-- 同 seed、同参数的事件日志**字节一致**。
+- 同 seed、同参数的事件日志**内容哈希一致**（32 位）+ 事件数/来源一致。
 - B2/B3 的事件数、投影/全量/replay hash 与 M0 一致。
 - `check:imports` 通过；`src/` 不 import `demos/`。
 - 不新增运行时依赖；不改变 CLI 输出格式。

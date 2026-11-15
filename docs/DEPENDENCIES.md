@@ -68,6 +68,7 @@ M1 已消除的例外：
 - `demos/world/src/kernel/{clock,rng}.ts` 已删除，改用 `src/kernel/*`。
 - 两 demo 的 `engine/{json,rng}.ts` 直接 import 已改为 `src/kernel/{canonical-json,rng}.ts`。
 - `engine/` 保留为最小原语层；`llm/` 与 `harness/` 仍直接依赖 `engine/`。
+- 当前 `EventStore` 与 `World.state.eventLog` 共享同一数组；`append` 只是向该数组 push，**写入隔离未强制**。矩阵只约束依赖方向，不证明运行时唯一写路径；M2 若依赖隔离，需先改测试并实现只读视图/复制/注入存储。
 
 ## 4. 检查方式
 

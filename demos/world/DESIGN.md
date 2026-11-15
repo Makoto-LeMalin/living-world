@@ -73,8 +73,8 @@ CharacterRuntime.decide(ctx) ──► Intent
 
 | 模块 | 职责 | 不做什么 |
 |---|---|---|
-| `kernel/` | 时钟、事件日志、ID、RNG、状态哈希、快照 | 不做分布式/迁移 |
-| `world/` | 房间图、实体、库存、价格、法律、痕迹 | 不做网格/寻路/光照 |
+| `src/kernel/`（共享） | 时钟、tick、RNG 分流、ID、规范化 JSON、快照/JSONL | 不做世界规则 |
+| `world/` | 房间图、实体、库存、价格、法律、痕迹、事件追加与投影 | 不做网格/寻路/光照 |
 | `agents/` | `CharacterRuntime`、日程、需求、知识、关系、LOD | 不做情绪模型/性格演化 |
 | `rules/` | 盗窃、目击、传闻、调查、拘禁、火灾、价格 | 不做深度战斗/经济 |
 | `query/` | `chronicle`、`ask`、`inspect`、`metrics` | 不做 Web |
@@ -793,7 +793,6 @@ demos/world/
 ├── fixtures/llm-b3/                完整 3 天真实运行 cassette（17 个）
 ├── src/
 │   ├── types.ts                    共享类型
-│   ├── kernel/                     clock, rng
 │   ├── world/                      canon/builder, world, director, llm-director, invariants
 │   ├── agents/character.ts         CharacterRuntime 契约 / PC runtime / CharacterRecord
 │   ├── agents/runtime.ts           NpcRuntime（日程、需求、移动、行为）
