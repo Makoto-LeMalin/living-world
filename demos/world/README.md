@@ -3,8 +3,9 @@
 **状态：B0–B3 完整可验证（13/13 门）；B4 人工评审未做。**
 
 - 67 个单进程测试通过；`pnpm typecheck` 0 错误。
-- B2 报告：运行 `node demos/world/src/cli.ts report` 生成 `reports/world-validation.md`（12/12 门；本地文件，gitignored）。
+- B2 报告：运行 `pnpm report:world` 生成 `reports/world-validation.md`（12/12 门；本地文件，gitignored）。
 - B3 报告：同一命令生成 `reports/world-b3-validation.md`（13/13 门；本地文件，gitignored）。
+> 裸 `node demos/world/src/cli.ts report` 只生成报告，不写新鲜度印记；`check:baseline` 会拒绝，验证请用 `pnpm report:world`。
 - B3 完整 3 天真实 DeepSeek：4 次 WorldDirector 调用 / 7 个合法提案；14 次角色对话，全部 `source=llm`、claims 合法、cassette 0 miss。
 - CharacterRuntime：PC/NPC/群体共用契约；T0–T3 有自然晋升/降级；CM-6 20 次降级→晋升、CM-7 个体化/合并、CM-8 0 泄漏均通过。
 - NPC 动作仍 100% 规则；LLM 只做 WorldDirector 提案和同房间角色台词。
@@ -49,7 +50,7 @@ node demos/world/src/cli.ts inspect --npc guard
 
 # 生成编年史与验证报告
 node demos/world/src/cli.ts chronicle --seed 7 --out reports/world-chronicle.md
-node demos/world/src/cli.ts report
+pnpm report:world
 
 # 测试
 node demos/world/test/run.ts

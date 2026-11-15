@@ -213,7 +213,7 @@ v0 不做 Web 面板；PRD §11 的观察面板等到 X 之后再议。
 | B3 CharacterRuntime/T0–T3/群体/双预算 | ✅ 13/13 门；完整 3 天真实 DeepSeek（4 Director + 14 对话）；CM-1/5/6/7/8 全过 |
 | B4 报告/人工评审 | 🟡 chronicle + 12 门 B2 + 13 门 B3；WB-9 主观评审未做 |
 
-验证报告：运行 `node demos/world/src/cli.ts report` 生成 `reports/world-validation.md`（本地文件，gitignored）。
+验证报告：运行 `pnpm report:world` 生成 `reports/world-validation.md`（本地文件，gitignored；裸 CLI report 不写新鲜度印记）。
 
 ### 4.2 五个必须真的机制
 

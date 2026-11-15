@@ -146,7 +146,7 @@ node demos/world/src/cli.ts talk --replay --npc merchant --q "这里发生过什
 node demos/world/src/cli.ts b3 --replay --seed 7 --days 3   # 完整 3 天 + 真实 LLM cassette
 node demos/world/src/cli.ts b3 --record --seed 7 --days 3   # 重新录制（会调用真实模型）
 node demos/world/src/cli.ts chronicle --seed 7 --out reports/world-chronicle.md
-node demos/world/src/cli.ts report
+pnpm report:world                   # 生成 B2/B3 报告并写新鲜度印记
 ```
 
 装了 pnpm 可以用脚本：
