@@ -6,8 +6,8 @@
   "tests": {
     "embodied": 100,
     "world": 67,
-    "kernel": 12,
-    "total": 179,
+    "kernel": 27,
+    "total": 194,
     "verifiedBy": "pnpm test:all"
   },
   "b2": {

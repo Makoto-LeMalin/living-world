@@ -7,7 +7,7 @@ import { clamp, round2 } from "../world/canon.ts";
 import { provenance, type World } from "../world/world.ts";
 import { createPlan } from "./plans.ts";
 import type { Commodity, EventPlan } from "../types.ts";
-import { roll } from "../kernel/rng.ts";
+import { roll } from "../../../../src/kernel/rng.ts";
 
 export interface ActionDmVerdict {
   direction: string;

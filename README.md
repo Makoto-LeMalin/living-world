@@ -15,9 +15,10 @@ living-world/
 │   ├── DESIGN.md            实现备忘（可改，不构成需求）
 │   ├── ARCHITECTURE.md      整体架构：分层、契约、运行时、LLM、通信、存储、迁移
 │   ├── DEVELOPMENT_PLAN.md  逐步开发方案：M0–M6、任务、门、估算、失败分支
+│   ├── M1.md                M1 抽共享内核：模块边界、兼容性证据
 │   ├── DEPENDENCIES.md      模块允许依赖矩阵
 │   ├── RISKS.md             风险登记
-│   ├── adr/                 ADR-1–9
+│   ├── adr/                 ADR-1–10
 │   ├── DEMO_PLAN.md         双 demo 总纲、里程碑、验收门
 │   ├── CHARACTER_MODEL.md   角色/判定内核 v2 方向（维度、约束、ActionDemand、NPC 分层）
 │   ├── VALIDATION.md        v0/v2 parity 与后续验证协议
@@ -33,14 +34,18 @@ living-world/
 │   └── world/               带 NPC 的世界 demo（B0–B3 已可跑）
 │       ├── README.md        入口：命令、验收门、做到哪
 │       ├── DESIGN.md        事件日志 / 三源事件 / 传闻 / 返回 / CharacterRuntime
-│       ├── src/             kernel / world / agents / rules / query / CLI
+│       ├── src/             world / agents / rules / query / CLI
 │       ├── test/            67 个单进程测试（含 B3）
 │       └── fixtures/        ferry-market.json 手写 canon + 真实 LLM cassette
 ├── src/contracts/           P0 冻结的共享契约（仅类型）
-├── engine/                  共享内核（RNG、规范化 JSON）
-├── harness/                 检查器（claims / 元词 / 数值泄漏）
+├── src/kernel/              M1 共享内核（clock/rng/ids/canonical-json/snapshot）
+├── src/space/               M1 空间结构（房间/路线/可见范围）
+├── src/world/               M1 事件写路径（EventStore/Projection）
+├── engine/                  最小原语（RNG、规范化 JSON）
+├── harness/                 检查器（claims / 元词 / replay / invariant）
 ├── llm/                     DeepSeek 适配、cassette 录制回放
 ├── scripts/check-secrets.mjs 提交前密钥扫描
+├── scripts/check-deps.mjs   依赖方向检查
 ├── scripts/baseline.mjs     P0 基线固化（B2/B3/hash/cassette）
 ├── .env.example            环境变量模板（不含真实 key）
 ├── .gitignore
@@ -56,10 +61,11 @@ living-world/
 2. [docs/DESIGN.md](docs/DESIGN.md) — 打算怎么做（实现备忘）
 3. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — 两个 demo 合并后的整体架构与迁移路线
 4. [docs/DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md) — 逐步开发方案：任务、依赖、门、估算
-5. [docs/DEMO_PLAN.md](docs/DEMO_PLAN.md) — 两个 demo 的分工、里程碑、验收门
-6. [docs/CHARACTER_MODEL.md](docs/CHARACTER_MODEL.md) — 枚举撑不住之后的通用角色/判定内核（v2 方向）
-7. [docs/VALIDATION.md](docs/VALIDATION.md) — 验证协议与结果（V1/V2/V3；世界 B0–B3）
-8. [demos/embodied/DESIGN.md](demos/embodied/DESIGN.md) — 具身 demo 的详细模型与指标
+5. [docs/M1.md](docs/M1.md) — 已完成的共享内核抽取与兼容性证据
+6. [docs/DEMO_PLAN.md](docs/DEMO_PLAN.md) — 两个 demo 的分工、里程碑、验收门
+7. [docs/CHARACTER_MODEL.md](docs/CHARACTER_MODEL.md) — 枚举撑不住之后的通用角色/判定内核（v2 方向）
+8. [docs/VALIDATION.md](docs/VALIDATION.md) — 验证协议与结果（V1/V2/V3；世界 B0–B3）
+9. [demos/embodied/DESIGN.md](demos/embodied/DESIGN.md) — 具身 demo 的详细模型与指标
 
 文档地图与更新规则：[docs/README.md](docs/README.md)。
 
@@ -83,6 +89,7 @@ living-world/
 | 世界 B3：CharacterRuntime / T0–T3 / 群体 / 真实 3 天 LLM | ✅ 13/13 门；67 个世界测试；真实 DeepSeek 4 次 Director + 14 次角色对话；cassette 零 miss |
 | 世界 B4：chronicle / metrics / WB 报告 | 🟡 报告与 chronicle 已生成；人工评审未做 |
 | 工程化 P0：verify / 基线 / 契约 / 依赖 / ADR / 风险 | ✅ `pnpm verify`；基线 [reports/baseline.md](reports/baseline.md) |
+| M1：抽共享内核 | ✅ kernel/space/world/harness；194 测试；B2/B3 hash 与 M0 一致；[docs/M1.md](docs/M1.md) |
 
 ## 运行
 
@@ -92,6 +99,10 @@ living-world/
 # 测试
 node demos/embodied/test/run.ts
 node demos/world/test/run.ts        # 世界 demo：67 个测试（含 B3）
+node test/run.ts                    # 共享内核：27 个测试
+
+# 工程门
+pnpm verify                         # typecheck + 依赖检查 + 194 测试 + secrets + B2/B3 + 基线
 
 # 看阿岬的身体与能力值
 node demos/embodied/src/cli.ts body inspect
@@ -156,6 +167,6 @@ pnpm demo:world sim --seed 7
 ## 约定
 
 - 每个 demo 自包含在 `demos/<name>/`：`README.md`（入口）、`DESIGN.md`（细节）、`src/`、`test/`、`fixtures/`。
-- demo 之间不互相 import；共享代码放 `engine/`、`harness/`、`llm/`。
-- 所有随机必须走 `engine/rng.ts`，禁止 `Math.random()`。
+- demo 之间不互相 import；共享代码放 `src/kernel/`、`src/space/`、`src/world/`、`engine/`、`harness/`、`llm/`。
+- 所有随机必须走 `src/kernel/rng.ts`，禁止 `Math.random()`。
 - 文档先改再写代码；需求变化改 PRD，实现变化改 DESIGN。

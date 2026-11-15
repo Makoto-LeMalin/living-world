@@ -166,6 +166,8 @@ Living World 的整体架构可以压成一句话：
 | `host` | DSH/CLI/HTTP 适配 | 世界真相 |
 | `harness` | Meta/Claim/Leak/Invariant/Replay/Metrics | 产品 UI |
 
+M1 已落地的共享模块：`src/kernel/`（clock/rng/ids/canonical-json/snapshot）、`src/space/`（Space）、`src/world/`（EventStore/Projection 契约）、`harness/`（replay/invariant）。两个 demo 已改为依赖这些入口，`demos/world/src/kernel/` 已删除；兼容性证据见 [M1.md](M1.md)。
+
 ---
 
 ## 4. 核心契约

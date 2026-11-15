@@ -9,7 +9,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { makeRng } from "../../../../engine/rng.ts";
+import { makeRng } from "../../../../src/kernel/rng.ts";
 import type {
   Activity,
   CanonFile,

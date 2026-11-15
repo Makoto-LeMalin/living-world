@@ -11,8 +11,8 @@
 
 import type { Verb } from "./actions.ts";
 import type { ChatClient, ChatMessage } from "../../../llm/types.ts";
-import { hashString } from "../../../engine/rng.ts";
-import { canonicalJson } from "../../../engine/json.ts";
+import { hashString } from "../../../src/kernel/rng.ts";
+import { canonicalJson } from "../../../src/kernel/canonical-json.ts";
 
 export type DifficultyCategory =
   | "trivial"

@@ -7,7 +7,7 @@ import { clamp, round2 } from "../world/canon.ts";
 import { provenance, type World } from "../world/world.ts";
 import { createPlan } from "./plans.ts";
 import { adjustPrice, changeStock } from "./economy.ts";
-import { stream } from "../kernel/rng.ts";
+import { stream } from "../../../../src/kernel/rng.ts";
 import type { Commodity, EventPlan } from "../types.ts";
 
 export function scheduleFire(world: World, roomId: string, atTick: number, cause: string): EventPlan {

@@ -10,7 +10,7 @@ import type { ChatClient, ChatMessage } from "../../../../llm/types.ts";
 import type { EventProposal } from "../types.ts";
 import type { DirectorContext, AsyncWorldDirector } from "./director.ts";
 import type { World } from "./world.ts";
-import { formatTick } from "../kernel/clock.ts";
+import { formatTick } from "../../../../src/kernel/clock.ts";
 import { validateProposal } from "../rules/plans.ts";
 import { BUDGET_LIMITS } from "../rules/budget.ts";
 

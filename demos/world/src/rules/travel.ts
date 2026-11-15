@@ -9,11 +9,7 @@ import { spreadRumor } from "./rumor.ts";
 import type { Belief, Fact, RouteSegment } from "../types.ts";
 
 export function routeBetween(world: World, fromRoomId: string, toRoomId: string): RouteSegment | undefined {
-  return world.state.routes.find(
-    (route) =>
-      (route.fromRoomId === fromRoomId && route.toRoomId === toRoomId) ||
-      (route.toRoomId === fromRoomId && route.fromRoomId === toRoomId),
-  );
+  return world.space.routeBetween(fromRoomId, toRoomId);
 }
 
 function timeOfDayFactor(world: World): number {

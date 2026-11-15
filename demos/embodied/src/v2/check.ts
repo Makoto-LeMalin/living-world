@@ -16,7 +16,7 @@ import {
   probability,
   type Outcome,
 } from "../check.ts";
-import { makeRng } from "../../../../engine/rng.ts";
+import { makeRng } from "../../../../src/kernel/rng.ts";
 import { applyConstraints, constraintsFromBody } from "./constraints.ts";
 import { deriveDimensions, type Dim, type DimensionSheet } from "./dimensions.ts";
 import { scoreDemand, type ActionDemand } from "./demand.ts";

@@ -3,50 +3,42 @@
  * 这里只检查结构/资源/可追溯性，不检查“故事好不好”。
  */
 
+import { InvariantBuilder, type InvariantReport } from "../../../../harness/invariant.ts";
 import type { CanonFile, WorldState } from "../types.ts";
 import type { World } from "./world.ts";
 
-export interface InvariantReport {
-  ok: boolean;
-  errors: string[];
-  checks: number;
-}
+export type { InvariantReport };
 
 export function checkCanonInvariants(canon: CanonFile): InvariantReport {
-  const errors: string[] = [];
-  let checks = 0;
+  const checker = new InvariantBuilder();
   const roomIds = new Set(canon.rooms.map((room) => room.id));
   const characterIds = new Set(canon.characters.map((character) => character.id));
   const ids = new Set<string>();
 
-  checks++;
-  if (canon.rooms.length !== 12) errors.push(`房间数应为 12，实际 ${canon.rooms.length}`);
-  checks++;
-  if (canon.characters.length !== 10) errors.push(`具名 NPC 应为 10，实际 ${canon.characters.length}`);
-  checks++;
-  if (canon.crowds.length !== 2) errors.push(`群体应为 2，实际 ${canon.crowds.length}`);
+  checker.check(canon.rooms.length === 12, `房间数应为 12，实际 ${canon.rooms.length}`);
+  checker.check(canon.characters.length === 10, `具名 NPC 应为 10，实际 ${canon.characters.length}`);
+  checker.check(canon.crowds.length === 2, `群体应为 2，实际 ${canon.crowds.length}`);
 
   for (const room of canon.rooms) {
-    checks++;
-    if (ids.has(room.id)) errors.push(`重复 id: ${room.id}`);
+    checker.check(!ids.has(room.id), `重复 id: ${room.id}`);
     ids.add(room.id);
   }
   for (const character of canon.characters) {
-    checks++;
-    if (!roomIds.has(character.homeRoomId)) errors.push(`${character.id} home 不存在`);
-    if (!roomIds.has(character.startRoomId)) errors.push(`${character.id} start 不存在`);
+    const missing: string[] = [];
+    if (!roomIds.has(character.homeRoomId)) missing.push("home 不存在");
+    if (!roomIds.has(character.startRoomId)) missing.push("start 不存在");
+    checker.check(missing.length === 0, `${character.id} ${missing.join("; ")}`);
     for (const relation of Object.keys(character.relationships)) {
-      checks++;
-      if (!characterIds.has(relation)) errors.push(`${character.id} 关系指向未知角色 ${relation}`);
+      checker.check(characterIds.has(relation), `${character.id} 关系指向未知角色 ${relation}`);
     }
   }
   for (const route of canon.routes) {
-    checks++;
-    if (!roomIds.has(route.fromRoomId) || !roomIds.has(route.toRoomId)) {
-      errors.push(`路线 ${route.id} 端点不存在`);
-    }
+    const missing: string[] = [];
+    if (!roomIds.has(route.fromRoomId)) missing.push(`起点 ${route.fromRoomId} 不存在`);
+    if (!roomIds.has(route.toRoomId)) missing.push(`终点 ${route.toRoomId} 不存在`);
+    checker.check(missing.length === 0, `路线 ${route.id} ${missing.join("; ")}`);
   }
-  return { ok: errors.length === 0, errors, checks };
+  return checker.report();
 }
 
 export function checkWorldInvariants(world: World): InvariantReport {

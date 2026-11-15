@@ -6,13 +6,19 @@
  * 这样状态不是“规则随手改的”，而是可以从日志重建的。
  */
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
-
-import { canonicalJson } from "../../../../engine/json.ts";
-import { hashString } from "../../../../engine/rng.ts";
-import { dayOf, tickOfDay } from "../kernel/clock.ts";
-import { roll, stream } from "../kernel/rng.ts";
+import { hashCanonical } from "../../../../src/kernel/canonical-json.ts";
+import { dayOf, tickOfDay } from "../../../../src/kernel/clock.ts";
+import { formatId } from "../../../../src/kernel/ids.ts";
+import { roll, stream } from "../../../../src/kernel/rng.ts";
+import {
+  readJsonLines,
+  readSnapshotFile,
+  writeJsonLines,
+  writeSnapshotFile,
+} from "../../../../src/kernel/snapshot.ts";
+import { Space } from "../../../../src/space/index.ts";
+import { EventStore } from "../../../../src/world/event-store.ts";
+import type { Projection } from "../../../../src/world/projection.ts";
 import {
   clamp,
   RULE_VERSION,
@@ -30,6 +36,7 @@ import type {
   Observation,
   Provenance,
   Room,
+  RouteSegment,
   SocialClimate,
   Trace,
   Visibility,
@@ -81,17 +88,20 @@ function provenance(source: EventSource, extra: Partial<Provenance> = {}): Prove
   return { source, ruleVersion: RULE_VERSION, ...extra };
 }
 
-export class World {
+export class World implements Projection<WorldEvent> {
   state: WorldState;
+  readonly space: Space<Room, RouteSegment>;
+  readonly events: EventStore<WorldEvent>;
 
-  constructor(state: WorldState) {
+  constructor(state: WorldState, events: WorldEvent[] = state.eventLog ?? []) {
     this.state = state;
+    this.state.eventLog = events;
+    this.space = new Space(state.rooms, state.routes);
+    this.events = new EventStore(events);
   }
 
   static fromSnapshot(snapshot: WorldState, events: WorldEvent[] = []): World {
-    const world = new World(structuredClone(snapshot));
-    world.state.eventLog = events;
-    return world;
+    return new World(structuredClone(snapshot), events);
   }
 
   get seed(): string {
@@ -99,9 +109,7 @@ export class World {
   }
 
   room(id: string): Room {
-    const found = this.state.rooms.find((candidate) => candidate.id === id);
-    if (!found) throw new Error(`未知房间: ${id}`);
-    return found;
+    return this.space.room(id);
   }
 
   character(id: string): Character {
@@ -125,7 +133,7 @@ export class World {
   }
 
   placeOfRoom(roomId: string): string {
-    return this.room(roomId).placeId;
+    return this.space.placeOfRoom(roomId);
   }
 
   placeOfActor(actorId: string): string | undefined {
@@ -158,6 +166,19 @@ export class World {
       if (this.placeOfRoom(crowd.roomId) === placeId) result.push(crowd.id);
     }
     if (this.placeOfRoom(this.state.pc.currentRoomId) === placeId) result.push(this.state.pc.id);
+    return result;
+  }
+
+  /** 指定房间集合内的在场者；保留 characters → crowds → pc 的全局顺序。 */
+  occupantsIn(roomIds: ReadonlySet<string>): string[] {
+    const result: string[] = [];
+    for (const character of this.state.characters) {
+      if (roomIds.has(character.currentRoomId)) result.push(character.id);
+    }
+    for (const crowd of this.state.crowds) {
+      if (roomIds.has(crowd.roomId)) result.push(crowd.id);
+    }
+    if (roomIds.has(this.state.pc.currentRoomId)) result.push(this.state.pc.id);
     return result;
   }
 
@@ -197,8 +218,8 @@ export class World {
   }
 
   visibleIdsAt(placeId: string): string[] {
-    const landmarks = this.state.rooms
-      .filter((room) => room.placeId === placeId)
+    const landmarks = this.space
+      .roomsInPlace(placeId)
       .flatMap((room) => room.landmarks.map((landmark) => landmark.id));
     const characters = this.state.characters
       .filter((character) => this.placeOfRoom(character.currentRoomId) === placeId)
@@ -218,12 +239,8 @@ export class World {
     const visibility = spec.visibility ?? "room";
     if (visibility === "private") return [];
 
-    const candidates =
-      visibility === "room"
-        ? this.occupants(roomId)
-        : visibility === "place"
-          ? this.placeOccupants(this.placeOfRoom(roomId))
-          : this.placeOccupants(this.placeOfRoom(roomId));
+    const scope = new Set(this.space.scopeRoomIds(visibility, roomId));
+    const candidates = this.occupantsIn(scope);
     const room = this.room(roomId);
     const lightFactor = room.light === "bright" ? 1 : room.light === "dim" ? 0.72 : 0.32;
     const concealment = typeof spec.payload?.concealment === "string" ? 0.62 : 1;
@@ -260,12 +277,12 @@ export class World {
     const room = this.room(roomId);
     const placeId = spec.placeId ?? room.placeId;
     const eventNumber = this.state.nextEventId++;
-    const id = `e_${String(eventNumber).padStart(6, "0")}`;
+    const id = formatId("e", eventNumber, 6);
 
     const witnesses = spec.witnesses ? [...new Set(spec.witnesses)] : this.computeWitnesses(spec, eventNumber);
 
     const facts: Fact[] = (spec.facts ?? []).map((draft) => {
-      const factId = `f_${String(this.state.nextFactId++).padStart(5, "0")}`;
+      const factId = formatId("f", this.state.nextFactId++, 5);
       return {
         id: factId,
         kind: draft.kind,
@@ -284,7 +301,7 @@ export class World {
     });
 
     const traces: Trace[] = (spec.traces ?? []).map((draft) => {
-      const traceId = `t_${String(this.state.nextTraceId++).padStart(5, "0")}`;
+      const traceId = formatId("t", this.state.nextTraceId++, 5);
       return {
         id: traceId,
         kind: draft.kind,
@@ -321,7 +338,7 @@ export class World {
       provenance: spec.provenance,
     };
 
-    this.state.eventLog.push(event);
+    this.events.append(event);
     this.apply(event);
     this.state.metrics.events++;
     this.state.metrics.eventsBySource[event.provenance.source] =
@@ -730,42 +747,30 @@ export class World {
 
   projectionHash(): string {
     const { eventLog: _eventLog, ...projection } = this.state;
-    return hashString(canonicalJson(projection)).toString(16).padStart(8, "0");
+    return hashCanonical(projection);
   }
 
   fullHash(): string {
-    return hashString(canonicalJson(this.state)).toString(16).padStart(8, "0");
+    return hashCanonical(this.state);
   }
 
   writeEventLog(path: string): void {
-    mkdirSync(dirname(path), { recursive: true });
-    const text = this.state.eventLog.map((event) => JSON.stringify(event)).join("\n");
-    writeFileSync(path, `${text}\n`, "utf8");
+    writeJsonLines(path, this.state.eventLog);
   }
 
   writeSnapshot(path: string): void {
-    mkdirSync(dirname(path), { recursive: true });
     const { eventLog: _eventLog, ...snapshot } = this.state;
-    writeFileSync(path, `${JSON.stringify({ version: 1, snapshot }, null, 2)}\n`, "utf8");
+    writeSnapshotFile(path, snapshot);
   }
 
-  static readSnapshot(path: string): World {
-    const parsed = JSON.parse(readFileSync(path, "utf8")) as { version: number; snapshot: WorldState };
-    if (parsed.version !== 1) throw new Error(`未知快照版本: ${parsed.version}`);
-    const snapshot = parsed.snapshot;
-    snapshot.eventLog ??= [];
-    return new World(snapshot);
+  static readSnapshot(path: string, events: WorldEvent[] = []): World {
+    const snapshot = readSnapshotFile<WorldState>(path);
+    snapshot.eventLog = events;
+    return new World(snapshot, events);
   }
 
   static readEventLog(path: string): WorldEvent[] {
-    const lines = readFileSync(path, "utf8").split(/\r?\n/).filter((line) => line.trim().length > 0);
-    return lines.map((line, index) => {
-      try {
-        return JSON.parse(line) as WorldEvent;
-      } catch (error) {
-        throw new Error(`事件日志第 ${index + 1} 行非法: ${String(error)}`);
-      }
-    });
+    return readJsonLines<WorldEvent>(path, "事件日志");
   }
 
   refreshClimate(placeId: string, narrative = "日常"): SocialClimate {

@@ -50,8 +50,8 @@ const baseline = {
   tests: {
     embodied: 100,
     world: 67,
-    kernel: 12,
-    total: 179,
+    kernel: 27,
+    total: 194,
     verifiedBy: "pnpm test:all",
   },
   b2: {
@@ -90,7 +90,7 @@ mkdirSync("reports", { recursive: true });
 writeFileSync(OUT_JSON, `${JSON.stringify(baseline, null, 2)}\n`, "utf8");
 
 const lines = [
-  "# P0 基线",
+  "# 回归基线（P0/M1）",
   "",
   "生成：`pnpm verify`。这是合并开发的回归基线；任何 M1+ 改动都必须先证明这里的数字没有非预期变化。",
   "",

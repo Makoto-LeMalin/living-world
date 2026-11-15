@@ -99,7 +99,7 @@ P0 已完成：
 - ADR：[docs/adr/README.md](adr/README.md)。
 - 风险登记：[docs/RISKS.md](RISKS.md)。
 
-后续追加（M1 P1.1 起步）：`ClockSpec`/`WorldClock` 与 12 条时钟单测；`pnpm test:all` 现为 100 + 67 + 12 = **179**。
+后续追加（M1 P1.1 起步）：`ClockSpec`/`WorldClock` 与 12 条时钟单测；M1 完成后 `pnpm test:all` 为 100 + 67 + 27 = **194**。
 
 ---
 
@@ -108,6 +108,8 @@ P0 已完成：
 ### 3.1 目标
 
 把两个 demo 已经重复/即将重复的部分抽成共享模块；**行为不变**。
+
+实现方案与完成记录见 [M1.md](M1.md)：kernel/space/world 的模块边界、EventStore/Projection 拆分、字节级兼容策略。
 
 ### 3.2 任务
 
@@ -122,16 +124,30 @@ P0 已完成：
 
 ### 3.3 G1 通过条件
 
-- 两个 demo 的测试数不减少，全部通过。
+- 两个 demo 的测试数不减少，全部通过（100 + 67）。
+- 共享内核测试：27 条（clock/kernel/space/event-store）。
 - 同 seed、同参数的事件日志**字节一致**。
+- B2/B3 的事件数、投影/全量/replay hash 与 M0 一致。
+- `check:imports` 通过；`src/` 不 import `demos/`。
 - 不新增运行时依赖；不改变 CLI 输出格式。
-- `src/` 不 import `demos/`。
 - `ClockSpec` 的 1:1、60x、0.5x、暂停、补齐、序列化单测通过；demo 与内核都不读挂钟。
 
 ### 3.4 失败分支
 
 - 字节不一致：先查排序/ID/RNG 流，不回退到“重建事件”。
 - 抽取后 demo 变复杂：保留 demo 本地 adapter，不强行共享。
+
+### 3.5 完成记录（2026-11-16）
+
+M1 已完成，G1 通过：
+
+- 内核：[src/kernel/](../src/kernel/)（clock/rng/ids/canonical-json/snapshot）。
+- 空间：[src/space/](../src/space/)。
+- 事件写路径：[src/world/event-store.ts](../src/world/event-store.ts)、[src/world/projection.ts](../src/world/projection.ts)。
+- Harness：[harness/replay.ts](../harness/replay.ts)、[harness/invariant.ts](../harness/invariant.ts)。
+- 兼容性：B2 668 事件 / `fb6cb1e3` / `8b77f4ae`；B3 760 事件 / `46c85469`，均与 M0 相同。
+- 验证：`pnpm verify`，194 测试、12/12、13/13、`check:imports` 通过。
+- 方案与边界：[M1.md](M1.md)。
 
 ---
 

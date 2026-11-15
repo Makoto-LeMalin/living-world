@@ -8,6 +8,7 @@
 | [DESIGN.md](DESIGN.md) | 实现备忘：分层、契约、未验证假设 | 低于 PRD |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 整体架构：分层、核心契约、运行时、LLM、通信、存储、迁移 | 低于 PRD，高于 demo 细节 |
 | [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) | 执行级逐步开发方案：M0–M6、任务、依赖、门、估算、失败分支 | 低于 ARCHITECTURE |
+| [M1.md](M1.md) | M1 抽共享内核：模块边界、EventStore/Projection、兼容性证据 | 执行记录 |
 | [DEPENDENCIES.md](DEPENDENCIES.md) | 模块允许依赖矩阵与禁止反向依赖规则 | 低于 ARCHITECTURE |
 | [RISKS.md](RISKS.md) | 风险登记：触发信号、影响、缓解、审查点 | 执行跟踪 |
 | [adr/](adr/README.md) | ADR-1–10：事件真相、同步 tick、真实时间比例、Compiler 边界、DM 盲测等 | 已接受决策 |

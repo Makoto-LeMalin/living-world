@@ -16,9 +16,10 @@
     "test:kernel": "node test/run.ts",
     "test:all": "node demos/embodied/test/run.ts && node demos/world/test/run.ts && node test/run.ts",
     "check:secrets": "node scripts/check-secrets.mjs",
+    "check:imports": "node scripts/check-deps.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "baseline": "node scripts/baseline.mjs",
-    "verify": "pnpm typecheck && pnpm test:all && pnpm check:secrets && node demos/world/src/cli.ts report && pnpm baseline"
+    "verify": "pnpm typecheck && pnpm check:imports && pnpm test:all && pnpm check:secrets && node demos/world/src/cli.ts report && pnpm baseline"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",

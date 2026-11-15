@@ -12,7 +12,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
-import { canonicalJson } from "../../../../engine/json.ts";
+import { canonicalJson } from "../../../../src/kernel/canonical-json.ts";
 import type { ChatClient } from "../../../../llm/types.ts";
 import { loadFixture } from "../fixture.ts";
 import type { Body } from "../body.ts";

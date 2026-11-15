@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { canonicalJson } from "../../../engine/json.ts";
+import { canonicalJson } from "../../../src/kernel/canonical-json.ts";
 import { runSimulation } from "../src/sim.ts";
 import { World } from "../src/world/world.ts";
 import { ask } from "../src/query.ts";
@@ -45,8 +45,7 @@ test("JSONL + snapshot 写读往返，查询一致", () => {
     result.world.writeSnapshot(snapshotPath);
 
     const events = World.readEventLog(eventPath);
-    const restored = World.readSnapshot(snapshotPath);
-    restored.state.eventLog = events;
+    const restored = World.readSnapshot(snapshotPath, events);
     assert.equal(events.length, result.world.state.eventLog.length);
     assert.equal(restored.state.facts.length, result.world.state.facts.length);
 

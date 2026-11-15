@@ -7,7 +7,7 @@
  * - 再次观察：优先复用墓碑记录，保持同一 id/身份/关系/关键记忆。
  */
 
-import { makeRng } from "../../../../engine/rng.ts";
+import { makeRng } from "../../../../src/kernel/rng.ts";
 import { clamp } from "../world/canon.ts";
 import { provenance, type World } from "../world/world.ts";
 import type {

@@ -8,7 +8,7 @@
 
 import { clamp } from "../world/canon.ts";
 import { provenance, type World } from "../world/world.ts";
-import { tickOfDay } from "../kernel/clock.ts";
+import { tickOfDay } from "../../../../src/kernel/clock.ts";
 import { changeCoins, changeStock, tryTrade } from "../rules/economy.ts";
 import { gossip } from "../rules/rumor.ts";
 import type { Character, LodLevel, ScheduleBlock } from "../types.ts";

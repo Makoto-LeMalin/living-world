@@ -4,7 +4,7 @@
  *
  * 约束：
  * - LLM 不参与这里的任何一步（DM 只能给有界难度，A2 接入）。
- * - 所有随机走 engine/rng.ts。
+ * - 所有随机走 src/kernel/rng.ts。
  * - 结果只产出"事实"，不产出叙述；叙述由 Narrator 负责。
  */
 
@@ -17,7 +17,7 @@ import {
   type Verb,
 } from "./actions.ts";
 import { capabilities, type Body, type Capability } from "./body.ts";
-import { makeRng } from "../../../engine/rng.ts";
+import { makeRng } from "../../../src/kernel/rng.ts";
 
 export type Outcome =
   | "clean_success"
