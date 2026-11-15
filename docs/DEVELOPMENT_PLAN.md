@@ -99,6 +99,8 @@ P0 已完成：
 - ADR：[docs/adr/README.md](adr/README.md)。
 - 风险登记：[docs/RISKS.md](RISKS.md)。
 
+后续追加（M1 P1.1 起步）：`ClockSpec`/`WorldClock` 与 12 条时钟单测；`pnpm test:all` 现为 100 + 67 + 12 = **179**。
+
 ---
 
 ## 3. M1：抽共享内核
@@ -111,7 +113,7 @@ P0 已完成：
 
 | ID | 任务 | 产出 | 依赖 |
 |---|---|---|---|
-| P1.1 | `kernel`：clock/rng/ids/canonical-json/snapshot | `src/kernel/*` + 单测 | G0 |
+| P1.1 | `kernel`：clock/rng/ids/canonical-json/snapshot | `src/kernel/*` + 单测；clock 含 `ClockSpec`/`WorldClock`（`stepped` 开发、`realtime` 应用） | G0 |
 | P1.2 | `space`：room/route/visibility | `src/space/*` + 单测 | P1.1 |
 | P1.3 | 拆分 `World.emit` | `EventStore.append` + `Projection.apply` | P1.1 |
 | P1.4 | 共享 test fixtures/harness | `harness/replay.ts`、`harness/invariant.ts` | P1.3 |
@@ -124,6 +126,7 @@ P0 已完成：
 - 同 seed、同参数的事件日志**字节一致**。
 - 不新增运行时依赖；不改变 CLI 输出格式。
 - `src/` 不 import `demos/`。
+- `ClockSpec` 的 1:1、60x、0.5x、暂停、补齐、序列化单测通过；demo 与内核都不读挂钟。
 
 ### 3.4 失败分支
 
@@ -277,7 +280,7 @@ P0 已完成：
 |---|---|---|---|
 | P5.1 | SQLite schema | worlds/events/snapshots/characters/facts/memories/channels/persona | G4 |
 | P5.2 | EventStore adapter | append/read/snapshot/replay；迁移脚本 | P5.1 |
-| P5.3 | 应用服务 | Scheduler、Session、OfflineCatchUp、QueryService | P5.2 |
+| P5.3 | 应用服务 | Scheduler（按 `ClockSpec` 的 `realtime` 推进）、Session、OfflineCatchUp、QueryService | P5.2 |
 | P5.4 | Observer API | 只读投影；无 thought/秘密 | P5.3 |
 | P5.5 | 消息 API | 只写 ChannelInbox | P5.3 |
 | P5.6 | DSH adapter | pre-step、schedule、followup、tools restrict | P5.4–P5.5 |
@@ -288,6 +291,8 @@ P0 已完成：
 - 进程重启后，角色位置/记忆/关系/信道连续；事件日志可回放。
 - 观察 API 不返回 thought/他人秘密；消息 API 不能直接改世界。
 - 离线推进 1 天后，返回摘要与事件日志一致；没有“现场编过去”。
+- `realtime` 按世界的 `timeScale` 推进；重启后锚点/lastTick 连续；暂停不补时长；长离线不跳 tick。
+- 比例是世界级配置，不从环境变量或设备时间覆盖。
 - DSH 适配器没有把 DSH 类型带进领域层；移除适配器后引擎仍可跑。
 - T6：脱离宿主可读/导出。
 
@@ -309,7 +314,7 @@ P0 已完成：
 
 | ID | 任务 | 产出 | 依赖 |
 |---|---|---|---|
-| P6.1 | 7 天陪伴 | 真实时间 7 天；每日观察记录 | G5 |
+| P6.1 | 7 天陪伴 | 真实时间 7 天；按世界 `ClockSpec` 比例推进；每日观察记录 | G5 |
 | P6.2 | T1 处刑 | 强制结果 + 叙述冲突率；重伤/昏迷替代死亡 | G5 |
 | P6.3 | T2/T3 | 长程对话不滑助手腔；早期事件召回 | G5 |
 | P6.4 | T4 | 24h 无人自主行动 | G5 |

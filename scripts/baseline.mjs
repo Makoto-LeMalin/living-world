@@ -50,7 +50,8 @@ const baseline = {
   tests: {
     embodied: 100,
     world: 67,
-    total: 167,
+    kernel: 12,
+    total: 179,
     verifiedBy: "pnpm test:all",
   },
   b2: {
@@ -97,6 +98,7 @@ const lines = [
   "",
   `- 具身：${baseline.tests.embodied}`,
   `- 世界：${baseline.tests.world}`,
+  `- 共享内核：${baseline.tests.kernel}`,
   `- 合计：${baseline.tests.total}（由 \`pnpm test:all\` 验证）`,
   "",
   "## B2",

@@ -10,7 +10,7 @@
 | [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) | 执行级逐步开发方案：M0–M6、任务、依赖、门、估算、失败分支 | 低于 ARCHITECTURE |
 | [DEPENDENCIES.md](DEPENDENCIES.md) | 模块允许依赖矩阵与禁止反向依赖规则 | 低于 ARCHITECTURE |
 | [RISKS.md](RISKS.md) | 风险登记：触发信号、影响、缓解、审查点 | 执行跟踪 |
-| [adr/](adr/README.md) | ADR-1–9：事件真相、同步 tick、Compiler 边界、DM 盲测等 | 已接受决策 |
+| [adr/](adr/README.md) | ADR-1–10：事件真相、同步 tick、真实时间比例、Compiler 边界、DM 盲测等 | 已接受决策 |
 | [DEMO_PLAN.md](DEMO_PLAN.md) | 双 demo 总纲：风险分工、里程碑、验收门 | 低于 PRD |
 | [CHARACTER_MODEL.md](CHARACTER_MODEL.md) | 角色与判定内核 v2 方向：维度、约束、ActionDemand、NPC 分层 | 实现方向 |
 | [VALIDATION.md](VALIDATION.md) | 验证协议与结果：V1 约束等价、V2 需求校准、V3 编译器完整验证、世界 B0–B3 | 执行记录 |

@@ -368,9 +368,29 @@ interface CharacterRecord {
 | 时钟 | 用途 | 规则 |
 |---|---|---|
 | `WorldClock` | 世界 tick，默认 10 世界分/tick，144 tick/日 | 只由 Scheduler 推进；回放按 tick |
-| `SessionClock` | 真实时间/会话节奏 | 可暂停、加速、回看；映射到 WorldClock |
+| `SessionClock` | 真实时间/会话节奏 | 可暂停、加速、回看；映射到 WorldClock，不直接改世界 |
 
-用户不使用时，`SessionClock` 可以停，但 `WorldClock` 仍可按配置离线推进；下次进入时补一段“这段时间发生了什么”的摘要。**补的是已发生的事件，不是现场编一段。**
+**应用运行时按现实时间等比推进**；比例属于世界记录，不是进程配置：
+
+```ts
+interface ClockSpec {
+  mode: "stepped" | "realtime"; // 开发/回放用 stepped；应用用 realtime
+  tickMinutes: number;          // 10
+  ticksPerDay: number;          // 144；tickMinutes * ticksPerDay 必须 = 1440
+  timeScale: number;            // 世界时间 / 现实时间；60 = 现实 1 分钟推世界 1 小时
+  maxCatchUpTicks: number;      // 单轮最多补多少 tick；0 = 不限
+  advanceWhenEmpty: boolean;    // 无人在线是否继续推进
+}
+```
+
+- 映射从锚点直接计算：`tick = epochTick + floor((now - epochRealMs) * timeScale / (tickMinutes * 60000))`。不做增量累加，避免长跑漂移。
+- `stepped` 由测试/CLI/replay 直接推进 tick，不读挂钟；`realtime` 才由宿主按现实时间调用 `dueTicks()`。两者 tick 语义相同。
+- `maxCatchUpTicks` 只限制单轮工作量；超出的 backlog 按 tick 顺序下一轮继续，**不跳过**。
+- 暂停冻结世界时间；恢复时平移锚点，暂停时长不补给世界。暂停状态与锚点一起持久化。
+- 改比例只影响之后的推进速度，不重算历史 tick，也不改写已发生事件；变更记入世界配置版本。
+- 领域层不调用 `Date.now()`：宿主传入 `realMs`，保证测试与回放可注入。
+
+用户不使用时，`SessionClock` 可以停，但 `WorldClock` 仍可按 `advanceWhenEmpty` 离线推进；下次进入时补一段“这段时间发生了什么”的摘要。**补的是已发生的事件，不是现场编一段。**
 
 ### 5.2 每 tick 的顺序
 

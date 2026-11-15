@@ -18,6 +18,7 @@ engine/            共享内核（RNG、规范化 JSON）
 harness/           共享检查器（claims/meta）
 llm/               DeepSeek 适配、cassette、类型
 src/contracts/     P0 冻结的共享契约（仅类型）
+src/kernel/        M1 起的共享内核（clock/rng/ids/canonical-json/snapshot）
 src/               目标共享模块（M1 起逐步填充）
 ```
 

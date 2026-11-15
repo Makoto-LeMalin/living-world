@@ -1,4 +1,4 @@
-# 架构决策记录（ADR-1–9）
+# 架构决策记录（ADR-1–10）
 
 | 项 | 内容 |
 |---|---|
@@ -79,6 +79,14 @@
 - **决策**：开发/验证继续 JSONL + snapshot；生产用 SQLite（WAL）+ 同一 `EventStore` 接口；迁移前不做分布式。
 - **后果**：M5 前不引入数据库依赖；需要 schema 版本/迁移测试；SQLite 不是第二真相。
 - **证据**：B2/B3 的 JSONL 回放；WB-8 数据安全。
+
+## ADR-10：应用按现实时间等比推进，比例世界级可配置
+
+- **状态**：Accepted
+- **背景**：两个 demo 的 3 天验证在秒级跑完，时间由测试循环直接推进；实际陪伴要求世界随现实时间连续变化，且不同世界可以有不同节奏。
+- **决策**：世界记录保存 `ClockSpec`（`mode`、`tickMinutes`、`ticksPerDay`、`timeScale`、`maxCatchUpTicks`、`advanceWhenEmpty`）。开发/回放用 `stepped`，由测试或 CLI 直接推进 tick；应用用 `realtime`，宿主按现实时间调用 `WorldClock.dueTicks()`。比例 `timeScale = 世界时间 / 现实时间`，属于世界而不是进程。
+- **后果**：领域层保持无挂钟、可回放；Scheduler 成为唯一推进者；锚点/暂停状态需持久化；长离线按 backlog 分批补齐，不跳 tick；改比例不重写历史。
+- **证据**：`src/kernel/clock.ts` 与 12 条单测覆盖 1:1、60x、0.5x、暂停、补齐、序列化；B2/B3 仍走 `stepped`，事件日志不变。
 
 ---
 
