@@ -23,7 +23,7 @@
 - 想看 v0/v2 对照：`pnpm demo:embodied parity --seed parity`，报告在 `reports/parity-parity.md`。
 - 想看编译器：`pnpm demo:embodied compiler --record`，报告在 `reports/compiler-v3.md`。
 - 想看完整 V3：`pnpm demo:embodied v3 --replay`，汇总在 `reports/v3-validation.md`，人工抽检包在 `reports/v3-review.md`。
-- 想看世界 demo：`pnpm report:world`，汇总在 `reports/world-validation.md` 与 `reports/world-b3-validation.md`，原始事件在 `reports/world-events.jsonl`。裸 `node demos/world/src/cli.ts report` 不写新鲜度印记，`check:baseline` 会拒绝。
+- 想看世界 demo：`pnpm report:world`，汇总在 `reports/world-validation.md` 与 `reports/world-b3-validation.md`，原始事件在 `reports/world-events.jsonl`。没有有效印记或新检出时，裸 `node demos/world/src/cli.ts report` 会被 `check:baseline` 拒绝；有有效印记且报告字节一致时仍可通过。
 - 想看世界 B3：`node demos/world/src/cli.ts b3 --replay --seed 7 --days 3`；完整 3 天真实响应副本在 `demos/world/fixtures/llm-b3/`。单点 `talk`/`director` 仍可用 `--record`/`--replay`。
 - 想看世界编年史：`node demos/world/src/cli.ts chronicle`，输出 `reports/world-chronicle.md`。
 - 想看机器可读结果：`--json` 输出到 stdout（此时 trace 自动关闭）。

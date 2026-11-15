@@ -97,8 +97,8 @@ living-world/
 | M1：抽共享内核 | ✅ kernel/space/world/harness；194 测试；B2/B3 hash 与 M0 一致；[docs/M1.md](docs/M1.md) |
 | 工作规范：角色互斥 | ✅ [AGENTS.md](AGENTS.md) / [docs/PROCESS.md](docs/PROCESS.md)；M0/M1 流程 FAIL |
 | M0/M1 独立审计 | ✅ 技术 CONDITIONAL PASS；流程 FAIL；[报告](docs/audits/M0-M1-AUDIT.md) |
-| R0：门禁证据修复 | 🟡 任务卡已建；待分派 Implementer/Verifier/Auditor |
-| M2：统一角色 | ⛔ 冻结（等 R0 通过 + 设计产物） |
+| R0：门禁证据修复 | ✅ admitted（2026-11-16）；技术 PASS、流程 PASS；CI runner 执行留作 M6 前补跑 |
+| M2：统一角色 | ⛔ 冻结（等设计产物；R0 已通过） |
 
 ## 运行
 
