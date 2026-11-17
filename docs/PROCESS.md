@@ -176,6 +176,7 @@ Coordinator 根据 Auditor 结论登记准入。技术通过但流程失败 → 
 | R0 | 待开工 | 工作规范落实后分派 Implementer/Verifier/Auditor |
 | M2 | 冻结 | 等 World / Character 设计产物；R0 已通过 |
 | World / Character 设计 | 独立设计会话 | READY；不因 WC 未定而阻塞 |
+| Architecture 设计 | 独立设计会话 | READY；旧 ARCHITECTURE 仅为输入 |
 | Channel / World Card 设计 | 独立设计会话 | WC 按 D-008 DEFERRED；Channel 只登记 |
 
 ---

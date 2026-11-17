@@ -16,6 +16,7 @@
 | [tasks/DESIGN-WC-01.md](tasks/DESIGN-WC-01.md) | 世界卡模块与角色/世界契约：设计任务卡（DEFERRED，D-008） | 设计任务 |
 | [tasks/DESIGN-WORLD-01.md](tasks/DESIGN-WORLD-01.md) | World 实现计划与质量模型：设计任务卡（READY） | 设计任务 |
 | [tasks/DESIGN-CHAR-01.md](tasks/DESIGN-CHAR-01.md) | Character / M2 统一运行时设计：设计任务卡（READY） | 设计任务 |
+| [tasks/DESIGN-ARCH-01.md](tasks/DESIGN-ARCH-01.md) | 整体架构设计：设计任务卡（READY） | 设计任务 |
 | [verification/R0.md](verification/R0.md) | R0 独立验证：命令、负向探针、测试有效性与覆盖 | 验证结论 |
 | [audits/M0-M1-AUDIT.md](audits/M0-M1-AUDIT.md) | M0/M1 独立审计：技术 CONDITIONAL PASS、流程 FAIL | 审计结论 |
 | [audits/R0-AUDIT.md](audits/R0-AUDIT.md) | R0 独立审计：技术 PASS、流程 PASS、准入 admitted | 审计结论 |
