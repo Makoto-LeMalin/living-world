@@ -23,28 +23,6 @@ export type CharacterTier = "T0" | "T1" | "T2" | "T3" | "companion";
 export type LodLevel = "focus" | "near" | "ambient" | "offstage";
 export type DetailLevel = "full" | "summary" | "index" | "aggregate" | "none";
 
-/**
- * 世界级时钟配置。开发/回放用 `stepped`，应用用 `realtime`。
- *
- * `timeScale` 是“世界时间 / 现实时间”：1 = 等比；60 = 现实 1 分钟推进世界 1 小时。
- * 比例属于世界记录，不属于进程/设备；换设备不应改变世界的推进速度。
- */
-export type ClockMode = "stepped" | "realtime";
-
-export interface ClockSpec {
-  mode: ClockMode;
-  /** 一个 tick 代表多少世界分钟。 */
-  tickMinutes: number;
-  /** 一个世界日多少个 tick；必须满足 tickMinutes * ticksPerDay = 1440。 */
-  ticksPerDay: number;
-  /** 世界时间 / 现实时间；必须 > 0。 */
-  timeScale: number;
-  /** 单次调度最多补多少 tick；0 = 不限。防止长离线时一次循环卡死。 */
-  maxCatchUpTicks: number;
-  /** 无人在线时是否继续推进世界；生产默认 true。 */
-  advanceWhenEmpty: boolean;
-}
-
 export interface Fact {
   id: string;
   kind: string;

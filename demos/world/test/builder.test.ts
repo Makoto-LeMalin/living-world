@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { canonicalJson } from "../../../src/kernel/canonical-json.ts";
+import { canonicalJson } from "../../../engine/json.ts";
 import { buildWorld, defaultConfig, loadCanon, validateCanon } from "../src/world/canon.ts";
 import { World } from "../src/world/world.ts";
 import { checkCanonInvariants, checkWorldInvariants } from "../src/world/invariants.ts";

@@ -3,7 +3,7 @@
  * 所有答案只读 Belief / EventLog，不读全局真相当成角色知识。
  */
 
-import { dayOf, formatTick } from "../../../src/kernel/clock.ts";
+import { dayOf, formatTick } from "./kernel/clock.ts";
 import type { Belief, Fact, QueryAnswer, WorldEvent } from "./types.ts";
 import type { World } from "./world/world.ts";
 

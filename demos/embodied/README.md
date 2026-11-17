@@ -109,7 +109,7 @@ demos/embodied/
 └── test/                   100 个测试（能力、约束、概率、日志、场景、DM、Narrator、cassette、DeepSeek、trace、v2、parity、compiler、v3）
 ```
 
-共享代码：`src/kernel/`（RNG 分流、规范化 JSON）、`harness/claim.ts`（claims/元词/数值检查）、`llm/`（DeepSeek、cassette）；底层原语仍在 `engine/`。
+共享代码：`engine/`（RNG、规范化 JSON）、`harness/claim.ts`（claims/元词/数值检查）、`llm/`（DeepSeek、cassette）。
 
 ## 已验证的算例
 

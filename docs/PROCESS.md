@@ -171,9 +171,10 @@ Coordinator 根据 Auditor 结论登记准入。技术通过但流程失败 → 
 
 | 阶段 | 状态 | 说明 |
 |---|---|---|
-| M0 | 技术保留，流程 FAIL | 见 [审计](audits/M0-M1-AUDIT.md) |
-| M1 | 技术 CONDITIONAL PASS，流程 FAIL | 代码保留；R0 已修复门禁 |
-| R0 | admitted | 技术/流程 PASS；CI runner 执行留作 M6 前补跑 |
+| 当前代码基线 | demo 完成 `7164dfa` | 代码、demos、reports 已回退；M1/R0 代码不在当前树 |
+| M0 | 历史 | 技术保留判断已随回退失效；见审计 |
+| M1 | 历史 | 代码不在当前树；仅审计记录保留 |
+| R0 | 历史 admitted | 门禁脚本不在当前树；不可当作当前门禁 |
 | M2 | 冻结 | 等架构设计 |
 | Architecture 设计 | 独立设计会话 | READY；当前唯一设计任务 |
 | World / Character / Channel / WC 设计 | 未建任务卡 | 等架构设计完成后再建，避免预划分模块 |

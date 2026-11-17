@@ -6,8 +6,8 @@
  * 不来自“PC 一套、NPC 另一套”的接口。
  */
 
-import { canonicalJson } from "../../../../src/kernel/canonical-json.ts";
-import { hashString } from "../../../../src/kernel/rng.ts";
+import { canonicalJson } from "../../../../engine/json.ts";
+import { hashString } from "../../../../engine/rng.ts";
 import type {
   Belief,
   Character,

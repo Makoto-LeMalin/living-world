@@ -1,40 +1,13 @@
 {
-  "schemaVersion": 2,
-  "generatedBy": "pnpm check:baseline",
-  "expectedSource": "reports/baseline.expected.json",
-  "verifiedAgainstExpected": true,
+  "schemaVersion": 1,
+  "generatedBy": "pnpm verify",
   "seed": "7",
   "days": 3,
   "tests": {
     "embodied": 100,
     "world": 67,
-    "kernel": 27,
-    "total": 194,
-    "pass": {
-      "embodied": 100,
-      "world": 67,
-      "kernel": 27,
-      "total": 194
-    },
-    "skipped": {
-      "embodied": 0,
-      "world": 0,
-      "kernel": 0,
-      "total": 0
-    },
-    "todo": {
-      "embodied": 0,
-      "world": 0,
-      "kernel": 0,
-      "total": 0
-    },
-    "cancelled": {
-      "embodied": 0,
-      "world": 0,
-      "kernel": 0,
-      "total": 0
-    },
-    "verifiedBy": "parsed from actual test output (scripts/lib/test-suites.mjs; pass==tests, skipped/todo/cancelled==0)"
+    "total": 167,
+    "verifiedBy": "pnpm test:all"
   },
   "b2": {
     "events": 668,
@@ -47,8 +20,6 @@
     "projectionHash": "fb6cb1e3",
     "fullHash": "8b77f4ae",
     "gates": 12,
-    "passedGates": 12,
-    "expectedGates": 12,
     "gateIds": [
       "WB-1",
       "WB-2",
@@ -85,8 +56,6 @@
     "llmSources": 14,
     "cassetteMisses": 0,
     "gates": 13,
-    "passedGates": 13,
-    "expectedGates": 13,
     "gateIds": [
       "B3-CM1",
       "B3-TIERS",

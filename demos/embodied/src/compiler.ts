@@ -10,8 +10,8 @@
  */
 
 import type { ChatClient, ChatMessage } from "../../../llm/types.ts";
-import { canonicalJson } from "../../../src/kernel/canonical-json.ts";
-import { hashString } from "../../../src/kernel/rng.ts";
+import { canonicalJson } from "../../../engine/json.ts";
+import { hashString } from "../../../engine/rng.ts";
 import { parseJsonObject } from "./dm.ts";
 import {
   isValidOntologyTag,

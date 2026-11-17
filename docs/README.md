@@ -21,7 +21,8 @@
 
 - 旧架构、旧开发计划、旧任务卡已删除；git 历史仍可追溯，但**不得作为 architecture 设计的输入**。
 - `DEMO_PLAN.md` 是 demo 验收资料，已保留；它仍指向已删除的旧 `ARCHITECTURE.md` 的位置仅作历史引用，不是当前架构输入。
-- `audits/` 与 `verification/` 只作为历史证据；它们包含旧路径引用，不代表当前设计结构。
+- `audits/` 与 `verification/` 只作为历史证据；它们对应已回退的 M1/R0 代码，不代表当前树，也不作为设计输入。
+- 当前代码、demos、reports 已回退到 demo 完成提交 `7164dfa`；M1/真实时钟/R0 门禁脚本不在当前树。
 - 当前只允许 Architecture 设计任务；World / Character / Channel / World Card 的任务卡在架构设计完成后再创建，避免预先划分模块。
 
 ## 更新规则

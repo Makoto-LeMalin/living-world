@@ -10,7 +10,7 @@
 
 import type { Body } from "../body.ts";
 import { outcomeOf, probability, type Outcome } from "../check.ts";
-import { makeRng } from "../../../../src/kernel/rng.ts";
+import { makeRng } from "../../../../engine/rng.ts";
 import { applyConstraints, constraintsFromBody } from "../v2/constraints.ts";
 import { scoreDemand, type ActionDemand } from "../v2/demand.ts";
 import { deriveDimensions, type Dim } from "../v2/dimensions.ts";

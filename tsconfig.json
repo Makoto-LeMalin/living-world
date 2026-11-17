@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "demos/**/*.ts", "engine/**/*.ts", "harness/**/*.ts", "llm/**/*.ts"]
+  "include": ["src/**/*.ts", "demos/**/*.ts", "engine/**/*.ts", "harness/**/*.ts", "llm/**/*.ts"]
 }

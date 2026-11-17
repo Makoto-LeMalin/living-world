@@ -5,7 +5,7 @@
  */
 
 import type { World } from "../world/world.ts";
-import { dayOf } from "../../../../src/kernel/clock.ts";
+import { dayOf } from "../kernel/clock.ts";
 import { provenance } from "../world/world.ts";
 import type { LodLevel } from "../types.ts";
 

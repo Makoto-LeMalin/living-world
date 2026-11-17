@@ -10,7 +10,8 @@
 |---|---|
 | 具身 demo | 可运行；机制验证，不等于产品完成 |
 | 世界 demo | 可运行；B2/B3 是机制证据，不是世界质量证明 |
-| R0 门禁修复 | admitted（技术/流程 PASS；CI runner 执行留作 M6 前补跑） |
+| 当前代码基线 | **demo 完成（7164dfa）**：代码、demos、reports 已回退；M1/真实时钟/R0 门禁脚本不在当前树 |
+| R0 门禁修复 | 历史记录：曾 admitted；对应代码已回退，不可当作当前门禁 |
 | 架构设计 | **待做**：[docs/tasks/DESIGN-ARCH-01.md](docs/tasks/DESIGN-ARCH-01.md) |
 | World / Character / Channel / WC 设计 | 暂不建任务卡，等架构设计完成后再决定 |
 | M2 | 冻结，等架构设计 |

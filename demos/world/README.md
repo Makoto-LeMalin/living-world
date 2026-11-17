@@ -3,9 +3,8 @@
 **状态：B0–B3 完整可验证（13/13 门）；B4 人工评审未做。**
 
 - 67 个单进程测试通过；`pnpm typecheck` 0 错误。
-- B2 报告：运行 `pnpm report:world` 生成 `reports/world-validation.md`（12/12 门；本地文件，gitignored）。
-- B3 报告：同一命令生成 `reports/world-b3-validation.md`（13/13 门；本地文件，gitignored）。
-> 裸 `node demos/world/src/cli.ts report` 只生成报告，不写新鲜度印记；`check:baseline` 会拒绝，验证请用 `pnpm report:world`。
+- B2 报告：[reports/world-validation.md](../../reports/world-validation.md)（12/12 门）。
+- B3 报告：[reports/world-b3-validation.md](../../reports/world-b3-validation.md)（13/13 门）。
 - B3 完整 3 天真实 DeepSeek：4 次 WorldDirector 调用 / 7 个合法提案；14 次角色对话，全部 `source=llm`、claims 合法、cassette 0 miss。
 - CharacterRuntime：PC/NPC/群体共用契约；T0–T3 有自然晋升/降级；CM-6 20 次降级→晋升、CM-7 个体化/合并、CM-8 0 泄漏均通过。
 - NPC 动作仍 100% 规则；LLM 只做 WorldDirector 提案和同房间角色台词。
@@ -50,7 +49,7 @@ node demos/world/src/cli.ts inspect --npc guard
 
 # 生成编年史与验证报告
 node demos/world/src/cli.ts chronicle --seed 7 --out reports/world-chronicle.md
-pnpm report:world
+node demos/world/src/cli.ts report
 
 # 测试
 node demos/world/test/run.ts
@@ -62,7 +61,7 @@ pnpm test:world
 | 项 | 结果 |
 |---|---|
 | 20 seed builder 不变量 | 20/20 |
-| 确定性回放 | 5/5 事件日志内容哈希一致 |
+| 确定性回放 | 5/5 事件日志字节级一致 |
 | 日程遵循 | 100.00%（adhered 3977 / transit 123 / excused 220 / violations 0） |
 | 事件三源（B2 主仿真） | 668 事件；ambient 33 / actor 504 / special 3 / system 128 |
 | 盗窃链 | 成功；TheftAttempt → Succeeded → Witnessed → RumorTold → Investigated → WitnessStatement → Accused → Jailed |
@@ -83,6 +82,7 @@ demos/world/
 ├── fixtures/ferry-market.json     手写 canon：12 房间/10 NPC/2 群体/3 段路
 ├── src/
 │   ├── types.ts                   共享类型
+│   ├── kernel/                    时钟、RNG 流
 │   ├── world/                     canon/builder、World、director、llm-director、invariants
 │   ├── agents/character.ts         CharacterRuntime 契约 / PC 脚本 runtime / CharacterRecord
 │   ├── agents/runtime.ts           NpcRuntime（日程、需求、移动、行为）

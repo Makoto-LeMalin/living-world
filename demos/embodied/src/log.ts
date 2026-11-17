@@ -14,8 +14,8 @@ import { dirname } from "node:path";
 import type { CheckEnv, Verb } from "./actions.ts";
 import type { Body } from "./body.ts";
 import { evaluateCheck, type CheckResult } from "./check.ts";
-import { hashString } from "../../../src/kernel/rng.ts";
-import { canonicalJson } from "../../../src/kernel/canonical-json.ts";
+import { hashString } from "../../../engine/rng.ts";
+import { canonicalJson } from "../../../engine/json.ts";
 
 export interface LoggedCheckInput {
   body: Body;

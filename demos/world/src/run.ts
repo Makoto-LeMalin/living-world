@@ -9,7 +9,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { verifyReplays } from "../../../harness/replay.ts";
+import { canonicalJson } from "../../../engine/json.ts";
 import { buildWorld, defaultConfig, loadCanon } from "./world/canon.ts";
 import { World } from "./world/world.ts";
 import { checkCanonInvariants, checkWorldInvariants } from "./world/invariants.ts";
@@ -91,13 +91,15 @@ export function runValidation(options: ValidationOptions = {}): ValidationResult
   }
 
   const main = runSimulation({ seed: "7", days });
-  const replayLogs = [main.world.state.eventLog];
+  const replayHashes: string[] = [];
+  let replayOk = true;
+  const baseline = canonicalJson(main.world.state.eventLog);
   for (let i = 0; i < replayRuns; i++) {
-    replayLogs.push(runSimulation({ seed: "7", days }).world.state.eventLog);
+    const replay = runSimulation({ seed: "7", days });
+    const hash = canonicalJson(replay.world.state.eventLog);
+    replayHashes.push(hash);
+    if (hash !== baseline) replayOk = false;
   }
-  const replayVerdict = verifyReplays(replayLogs);
-  const replayHashes = replayVerdict.hashes.slice(1);
-  const replayOk = replayVerdict.ok;
 
   const crime = theftFact(main);
   const theftAttempt = main.world.state.eventLog.find((event) => event.type === "TheftAttempt");
