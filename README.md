@@ -18,6 +18,7 @@
 ## 文档
 
 - [docs/PRD.md](docs/PRD.md)：产品需求草案
+- [docs/DEMO_PLAN.md](docs/DEMO_PLAN.md)：双 demo 总纲与验收门（保留）
 - [docs/PROCESS.md](docs/PROCESS.md)：角色互斥、阶段协议、证据规则
 - [docs/DECISIONS.md](docs/DECISIONS.md)：用户决定 D-001–D-008
 - [docs/tasks/DESIGN-ARCH-01.md](docs/tasks/DESIGN-ARCH-01.md)：当前唯一设计任务
@@ -25,7 +26,7 @@
 - [docs/verification/](docs/verification/)：历史验证记录，不是设计输入
 - [docs/README.md](docs/README.md)：文档地图
 
-旧架构、旧计划、旧模块依赖矩阵、旧任务卡已从工作区删除；git 历史仍可查，但不得作为新架构设计的输入。
+旧架构、旧开发计划、旧模块依赖矩阵、旧任务卡已从工作区删除；git 历史仍可查，但不得作为新架构设计的输入。`docs/DEMO_PLAN.md` 是 demo 验收资料，保留。
 
 ## 目录
 

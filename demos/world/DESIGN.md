@@ -3,10 +3,10 @@
 | 项 | 内容 |
 |---|---|
 | 状态 | B0–B3 已实现并验证（13/13 门）；完整 3 天真实 DeepSeek（4 Director + 14 角色对话）+ cassette 零 miss；B4 人工评审未做 |
-| 上游 | [../../docs/PRD.md](../../docs/PRD.md) §5–§8；旧计划/角色方向文档已清理，不再作为输入 |
+| 上游 | [../../docs/DEMO_PLAN.md](../../docs/DEMO_PLAN.md) §4、[../../docs/CHARACTER_MODEL.md](../../docs/CHARACTER_MODEL.md) §5–§7、[../../docs/PRD.md](../../docs/PRD.md) §5–§8 |
 | 入口 | [README.md](README.md) · 验证：运行 `pnpm report:world` 生成 `reports/world-validation.md`（本地，gitignored） |
 
-本文件只记录**实现决策**；范围、场景脚本、验收门以本文与 demo README 为准。
+本文件只记录**实现决策**；范围、场景脚本、验收门以 `docs/DEMO_PLAN.md` §4 为准。
 
 ## 0. 结论先行
 

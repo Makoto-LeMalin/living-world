@@ -5,6 +5,7 @@
 | 文档 | 作用 |
 |---|---|
 | [PRD.md](PRD.md) | 产品需求（草案，非实现权威） |
+| [DEMO_PLAN.md](DEMO_PLAN.md) | 双 demo 总纲与验收门（**保留**；属于 demo 资料，不是非 demo 计划） |
 | [PROCESS.md](PROCESS.md) | 角色互斥、阶段协议、证据规则 |
 | [DECISIONS.md](DECISIONS.md) | 用户决定（D-001–D-008） |
 | [tasks/DESIGN-ARCH-01.md](tasks/DESIGN-ARCH-01.md) | **当前唯一设计任务：整体架构设计** |
@@ -18,7 +19,8 @@
 
 ## 说明
 
-- 旧架构、旧计划、旧任务卡已删除；git 历史仍可追溯，但**不得作为 architecture 设计的输入**。
+- 旧架构、旧开发计划、旧任务卡已删除；git 历史仍可追溯，但**不得作为 architecture 设计的输入**。
+- `DEMO_PLAN.md` 是 demo 验收资料，已保留；它仍指向已删除的旧 `ARCHITECTURE.md` 的位置仅作历史引用，不是当前架构输入。
 - `audits/` 与 `verification/` 只作为历史证据；它们包含旧路径引用，不代表当前设计结构。
 - 当前只允许 Architecture 设计任务；World / Character / Channel / World Card 的任务卡在架构设计完成后再创建，避免预先划分模块。
 
