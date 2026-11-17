@@ -139,4 +139,4 @@ demos/world/
 3. 10 分钟演示脚本：`build → sim → b3 → talk → chronicle → report`。
 4. 视需要把已录制的 B3 单点探针迁到 `fixtures/llm/` 或删除，避免两套 cassette 混淆。
 
-范围与验收门见 [../../docs/DEMO_PLAN.md](../../docs/DEMO_PLAN.md) §4；实现决策见 [DESIGN.md](DESIGN.md)。
+范围与验收门以本文与 [DESIGN.md](DESIGN.md) 为准；实现决策见 [DESIGN.md](DESIGN.md)。

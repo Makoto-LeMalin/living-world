@@ -4,13 +4,13 @@
 |---|---|
 | 日期 | 2026-11-15 |
 | 状态 | 提案，待评审 |
-| 上游 | `../../docs/DEMO_PLAN.md` §3；`../../docs/PRD.md` §7；`../../docs/DESIGN.md` §5 |
+| 上游 | [../../docs/PRD.md](../../docs/PRD.md) §7；旧计划/验证文档已清理，不再作为输入 |
 | 范围 | 身体建模、能力值、难度与 DM、随机判定、验证标准 |
 | 模型 | DeepSeek（默认 `deepseek-flash`，DM 可切 `deepseek-v4-pro`） |
 
-实现进度：A0 ✅ / A1 ✅ / A2 ✅（12 拍接入，cassette 录放通过）/ A3 ⬜。v2 parity 已执行（见 [../../docs/VALIDATION.md](../../docs/VALIDATION.md)）。入口与命令见 [README.md](README.md)。
+实现进度：A0 ✅ / A1 ✅ / A2 ✅（12 拍接入，cassette 录放通过）/ A3 ⬜。v2 parity 已执行，结果见本 demo 测试与 README；入口与命令见 [README.md](README.md)。
 
-> **v0 基线不可扩展**：本文的 12 动词、部位状态、per-action 权重是为了把 demo 跑通。成品方向是"12 个物理维度 + 7 个效果原语 + ActionDemand 编译"，见 [../../docs/CHARACTER_MODEL.md](../../docs/CHARACTER_MODEL.md)。P1–P3 在本 demo 验证，不推翻现有基线。
+> **v0 基线不可扩展**：本文的 12 动词、部位状态、per-action 权重是为了把 demo 跑通。成品方向是"12 个物理维度 + 7 个效果原语 + ActionDemand 编译"；旧的 v2 方向文档已清理，不再作为输入。P1–P3 在本 demo 验证，不推翻现有基线。
 
 ---
 
@@ -544,7 +544,7 @@ type CheckRecord = {
 | EA-17 | 可解释/可回放 | 每条 check 记录 C/D/base/factors/p/u | 全部 | 100% 字段齐全；回放一致 | 是 |
 | EA-18 | 成本 | 记账 | 1 局 | DM 调用 ≤ 12；总成本 ≤ $0.10 | 否 |
 
-`../../docs/DEMO_PLAN.md` 的 EA-1/2/5（泄漏、越权、入世）继续适用，不重复编号。
+EA-1/2/5（泄漏、越权、入世）继续适用，不重复编号。
 
 ### 11.2 脚本场景
 

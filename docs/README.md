@@ -1,47 +1,31 @@
 # 文档地图
 
-本目录只放**跨 demo 的文档**。单个 demo 的细节放 `demos/<name>/DESIGN.md`。
+工作区已清理旧的设计文档、计划文档、模块依赖矩阵和任务卡。当前只保留：
 
-| 文件 | 角色 | 冲突时 |
-|---|---|---|
-| [PRD.md](PRD.md) | 产品需求：可观察的行为、边界、验收 | 最高 |
-| [DESIGN.md](DESIGN.md) | 实现备忘：分层、契约、未验证假设 | 低于 PRD |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | 整体架构：分层、核心契约、运行时、LLM、通信、存储、迁移 | 低于 PRD，高于 demo 细节 |
-| [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) | 执行级逐步开发方案：M0–M6、任务、依赖、门、估算、失败分支 | 低于 ARCHITECTURE |
-| [M1.md](M1.md) | M1 抽共享内核：模块边界、EventStore/Projection、兼容性证据 | 执行记录 |
-| [PROCESS.md](PROCESS.md) | 角色互斥、阶段协议、交接物、证据规则 | 工作规范 |
-| [DECISIONS.md](DECISIONS.md) | 用户/设计会话决定登记（Channel、世界卡、内容框架、R0 顺序） | 设计输入 |
-| [tasks/R0.md](tasks/R0.md) | R0 门禁修复任务卡与角色矩阵 | 执行任务 |
-| [tasks/DOC-R0.md](tasks/DOC-R0.md) | R0 文档残留修正（断链/历史表述） | 执行任务 |
-| [tasks/DESIGN-WC-01.md](tasks/DESIGN-WC-01.md) | 世界卡模块与角色/世界契约：设计任务卡（DEFERRED，D-008） | 设计任务 |
-| [tasks/DESIGN-WORLD-01.md](tasks/DESIGN-WORLD-01.md) | World 实现计划与质量模型：设计任务卡（READY） | 设计任务 |
-| [tasks/DESIGN-CHAR-01.md](tasks/DESIGN-CHAR-01.md) | Character / M2 统一运行时设计：设计任务卡（READY） | 设计任务 |
-| [tasks/DESIGN-ARCH-01.md](tasks/DESIGN-ARCH-01.md) | 整体架构设计：设计任务卡（READY） | 设计任务 |
-| [verification/R0.md](verification/R0.md) | R0 独立验证：命令、负向探针、测试有效性与覆盖 | 验证结论 |
-| [audits/M0-M1-AUDIT.md](audits/M0-M1-AUDIT.md) | M0/M1 独立审计：技术 CONDITIONAL PASS、流程 FAIL | 审计结论 |
-| [audits/R0-AUDIT.md](audits/R0-AUDIT.md) | R0 独立审计：技术 PASS、流程 PASS、准入 admitted | 审计结论 |
-| [DEPENDENCIES.md](DEPENDENCIES.md) | 模块允许依赖矩阵与禁止反向依赖规则 | 低于 ARCHITECTURE |
-| [RISKS.md](RISKS.md) | 风险登记：触发信号、影响、缓解、审查点 | 执行跟踪 |
-| [adr/](adr/README.md) | ADR-1–10：事件真相、同步 tick、真实时间比例、Compiler 边界、DM 盲测等 | 已接受决策 |
-| [DEMO_PLAN.md](DEMO_PLAN.md) | 双 demo 总纲：风险分工、里程碑、验收门 | 低于 PRD |
-| [CHARACTER_MODEL.md](CHARACTER_MODEL.md) | 角色与判定内核 v2 方向：维度、约束、ActionDemand、NPC 分层 | 实现方向 |
-| [VALIDATION.md](VALIDATION.md) | 验证协议与结果：V1 约束等价、V2 需求校准、V3 编译器完整验证、世界 B0–B3 | 执行记录 |
-| [../demos/embodied/DESIGN.md](../demos/embodied/DESIGN.md) | 具身 demo 的细节：身体、能力值、DM、指标 | 低于 DEMO_PLAN |
-| [../demos/embodied/README.md](../demos/embodied/README.md) | 具身 demo 入口：怎么跑、做到哪 | 只做入口 |
-| [../demos/world/DESIGN.md](../demos/world/DESIGN.md) | 世界 demo 的细节：事件日志、三源、传闻、返回 | 低于 DEMO_PLAN |
-| [../demos/world/README.md](../demos/world/README.md) | 世界 demo 入口：命令、验收结果、B4 待办 | 只做入口 |
+| 文档 | 作用 |
+|---|---|
+| [PRD.md](PRD.md) | 产品需求（草案，非实现权威） |
+| [PROCESS.md](PROCESS.md) | 角色互斥、阶段协议、证据规则 |
+| [DECISIONS.md](DECISIONS.md) | 用户决定（D-001–D-008） |
+| [tasks/DESIGN-ARCH-01.md](tasks/DESIGN-ARCH-01.md) | **当前唯一设计任务：整体架构设计** |
+| [audits/M0-M1-AUDIT.md](audits/M0-M1-AUDIT.md) | 历史审计证据（不是设计输入） |
+| [audits/R0-AUDIT.md](audits/R0-AUDIT.md) | 历史审计证据（不是设计输入） |
+| [verification/R0.md](verification/R0.md) | 历史验证记录（不是设计输入） |
+| [../demos/embodied/README.md](../demos/embodied/README.md) | 具身 demo 入口 |
+| [../demos/embodied/DESIGN.md](../demos/embodied/DESIGN.md) | 具身 demo 细节 |
+| [../demos/world/README.md](../demos/world/README.md) | 世界 demo 入口 |
+| [../demos/world/DESIGN.md](../demos/world/DESIGN.md) | 世界 demo 细节 |
+
+## 说明
+
+- 旧架构、旧计划、旧任务卡已删除；git 历史仍可追溯，但**不得作为 architecture 设计的输入**。
+- `audits/` 与 `verification/` 只作为历史证据；它们包含旧路径引用，不代表当前设计结构。
+- 当前只允许 Architecture 设计任务；World / Character / Channel / World Card 的任务卡在架构设计完成后再创建，避免预先划分模块。
 
 ## 更新规则
 
-1. **需求变更**：先改 `PRD.md`，再改 `DEMO_PLAN.md` 的验收门；不要只在 demo 文档里改。
-2. **实现变更**：改 `docs/DESIGN.md` 或对应的 `demos/*/DESIGN.md`，并在变更处写明"为什么"。
-3. **结论/数据**：只写进 demo 的 `README.md` 或 `reports/`，不复制进 PRD。
-4. **版本**：文件名不带版本；文首表格写 `v0.x` 与日期。PRD 与 DEMO_PLAN 各自维护版本。
-5. **未验证假设**：保留在 `docs/DESIGN.md` §9 与 `DEMO_PLAN.md` §1，标 `○` 的不当结论用。
-
-## 命名
-
-- `docs/`：跨 demo 的、相对稳定的文档。
-- `demos/<name>/DESIGN.md`：该 demo 的实现细节与指标，允许频繁改。
-- `demos/<name>/README.md`：入口，不超过一屏半；只链接，不复制表格。
-- `reports/`（后续）：每次实验的产物，按 `<demo>-<seed>-<date>.md` 命名。
+1. 需求变化改 `PRD.md`；
+2. 用户决定登记到 `DECISIONS.md`；
+3. 阶段任务写入 `docs/tasks/<stage>.md`，必须有角色矩阵；
+4. 设计产物写入 `docs/design/`；
+5. 审计/验证记录只追加，不改写历史。

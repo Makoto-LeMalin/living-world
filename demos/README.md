@@ -22,4 +22,4 @@ demos/<name>/
 
 - Node ≥ 24，直接跑 `.ts`，不引入构建步骤。
 - 随机只用 `engine/rng.ts`。
-- 任一 demo 的阻断门不达标，不进入合并（见 [../docs/DEMO_PLAN.md](../docs/DEMO_PLAN.md)）。
+- 任一 demo 的阻断门不达标，不进入合并。
