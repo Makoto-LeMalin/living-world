@@ -65,3 +65,10 @@
 - **技术结论**：CONDITIONAL PASS。194 测试、B2/B3 数字与 hash 独立复现；M1 抽取真实；代码保留。
 - **流程结论**：FAIL。M0/M1 由同一 agent 自审，阶段无效。
 - **降级声明**：在 R0 修复前，“M0 基线不可回退”“verify 通过即 gate 证据”“事件日志字节一致”不成立或需降级表述。
+
+## D-008：World Card 在 World / Character 之后推进
+
+- **日期**：2026-11-17
+- **决定**：World Card（WC）不在 World / Character 之前推进。先分别完成世界与角色的设计与实现，再推进 WC。WC 不阻塞这两条线；World / Character 设计不得以“WC 未定”为阻塞理由，只定义对 WC 的接口假设。
+- **现有草稿**：`docs/design/WORLD_CARD.md` v0.6 仅作参考，不推进、不审计、不作为实现依据；待 WC 解冻后再确认版本。
+- **后果**：[DESIGN-WC-01](tasks/DESIGN-WC-01.md) 状态改为 DEFERRED；World / Character 设计任务保持 READY；WC 重开需用户明确指令。

@@ -3,7 +3,7 @@
 | 项 | 内容 |
 |---|---|
 | 阶段 | 设计（独立设计会话执行） |
-| 状态 | DRAFT RECEIVED：`docs/design/WORLD_CARD.md` v0.6（讨论稿；用户评审“勉强过关”；示例待产出；未审计） |
+| 状态 | DEFERRED（D-008）：等 World / Character 分别完成设计与实现后再推进；`docs/design/WORLD_CARD.md` v0.6 仅作参考，不审计、不作为实现依据 |
 | 依据 | [D-003](../DECISIONS.md#d-003channel-采用模块化预设)、[D-004](../DECISIONS.md#d-004世界卡--提示词模块是独立模块)、[D-005](../DECISIONS.md#d-005内容框架不提供实际服务)；用户对 Channel / 世界卡 / 内容框架的最新决定 |
 | 输出 | `docs/design/WORLD_CARD.md`（规范设计）＋ `docs/design/WORLD_CARD.examples.md`（示例） |
 | 下游 | 设计审计通过后，才创建实现任务卡 |
@@ -224,3 +224,9 @@ Auditor 通过后，才创建实现任务卡；实现任务必须引用本设计
 - `docs/design/WORLD_CARD.md`：v0.6 讨论稿，2026-11-16 用户评审“勉强过关，可作为开发参考，非最终设计”；示例待结构稳定后产出；未经独立审计。
 - 本会话未修改该文件，也未提交它；等待设计会话确认版本后再登记入库。
 - 该文件目前为工作区未跟踪文件，不以链接形式进入索引，避免克隆后断链。
+
+## 12. 顺序与依赖（D-008）
+
+- **blocked_by**：`DESIGN-WORLD-01` 与 `DESIGN-CHAR-01` 各自完成设计 **与实现** 并通过验收。
+- WC 不阻塞 World / Character；两份设计只定义对 WC 的接口假设，不得以“WC 未定”为阻塞理由。
+- 本任务在 D-008 解冻前不推进；v0.6 草稿冻结为参考，不审计、不作为实现依据。

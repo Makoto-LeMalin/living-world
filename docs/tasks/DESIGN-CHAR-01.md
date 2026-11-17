@@ -3,7 +3,7 @@
 | 项 | 内容 |
 |---|---|
 | 阶段 | 设计（独立设计会话执行） |
-| 状态 | READY：待设计会话领取 |
+| 状态 | READY：待用户协调的独立设计会话领取；不因 WC 未定而阻塞，只定义对 WC 的接口假设（D-008） |
 | 依据 | 用户对角色 demo 的批评：角色也不能只靠 demo 证明；M2 与 World 的顺序需要两份设计都完成后再定 |
 | 输入 | [CHARACTER_MODEL.md](../CHARACTER_MODEL.md)（v2 草案，非权威）；具身 demo 100 测试；世界 B3 的 CM-1/6/7（机制证据，非质量证明）；[DESIGN-WC-01](DESIGN-WC-01.md)、[DESIGN-WORLD-01](DESIGN-WORLD-01.md) |
 | 输出 | `docs/design/CHARACTER_PLAN.md`（模型/运行时/契约/M2 计划）＋ `docs/design/CHARACTER_QUALITY.md`（质量模型与评估） |
